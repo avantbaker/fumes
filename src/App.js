@@ -2,70 +2,16 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Button
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { ListItem, Card } from 'react-native-elements';
 
 import AuthScreen from './components/screens/AuthScreen';
+import HomeScreen from './components/screens/HomeScreen';
 
-const list = [
-    {
-        title: 'Appointments',
-        icon: 'av-timer'
-    },
-    {
-        title: 'Trips',
-        icon: 'flight-takeoff'
-    }
-];
-
-const cardContainerStyles = {
-    borderColor: 'transparent',
-    backgroundColor: 'transparent',
-    padding: 0
-};
-const listItemContainerStyles = {
-    backgroundColor: 'white',
-    borderBottomWidth: 0,
-    borderBottomColor: 'transparent',
-    marginBottom: 8
-};
-
-class HomeScreen extends Component {
-
-    static navigationOptions = ({ navigation }) => {
-        const { navigate } = navigation;
-        return {
-            title: 'Entry Log',
-            headerRight: (
-                <Button
-                    title="+"
-                    onPress={() => console.log('Adding 1')}
-                />
-            )
-        }
-    };
-
-    render() {
-        return(
-          <View style={styles.container}>
-              <Card containerStyle={cardContainerStyles}>
-                  {
-                      list.map((item, i) => (
-                          <ListItem
-                              containerStyle={listItemContainerStyles}
-                              key={i}
-                              title={item.title}
-                              leftIcon={{ name: item.icon }}
-                          />
-                      ))
-                  }
-              </Card>
-          </View>
-        );
-    }
-}
+// TODO: Hook up Redux with the Stack Navigator
+// TODO: seperate these into their own stacks
+// TODO: remove header in the Auth Stack
+// TODO: Move AppNavigator and Routes into seperate files
 
 const AppNavigator = StackNavigator(
     {
