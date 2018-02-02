@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { FormLabel, FormInput } from 'react-native-elements';
-import {
-    Button,
-} from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 import {
     View,
