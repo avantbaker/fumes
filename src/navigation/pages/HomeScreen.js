@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import EntryListContainer from '../containers/EntryListContainer';
-import EntryListItem from '../buttons/EntryListItem';
+import EntryListContainer from '../../components/containers/EntryListContainer';
+import EntryListItem from '../../components/buttons/EntryListItem';
 
 const list = [
     {

@@ -5,7 +5,7 @@ import {
     Text
 } from 'react-native';
 
-import AuthForm from '../forms/AuthForm.component';
+import AuthForm from '../../components/forms/AuthForm.component';
 
 export default class App extends Component {
     render() {
