@@ -12,7 +12,7 @@ export default class App extends Component {
         return (
             <View style={styles.container}>
                 <Text style={{ alignSelf: 'center', fontSize: 40 }}>FUMES</Text>
-                <AuthForm style={{ marginTop: 50 }}/>
+                <AuthForm style={{ marginTop: 50 }} {...this.props} />
             </View>
         );
     }

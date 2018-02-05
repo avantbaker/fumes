@@ -4,6 +4,10 @@ import { Button } from 'react-native-elements';
 import { View } from 'react-native';
 
 export default class SignUpForm extends Component {
+    onSubmit() {
+
+    }
+
     render() {
         return(
             <View>

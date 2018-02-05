@@ -5,15 +5,23 @@ import {
 import AuthScreen from './AuthScreen';
 import HomeScreen from './HomeScreen';
 
-// TODO: seperate these into their own stacks
-// TODO: remove header in the Auth Stack
-// TODO: Remove screens from components
-// TODO: Move AppNavigator and Routes into seperate files
+const AuthStack = StackNavigator({
+    Login: { screen: AuthScreen }
+},{
+    headerMode: 'none'
+});
+
+const MainStack = StackNavigator({
+    Home: { screen: HomeScreen }
+},{
+    headerMode: 'screen',
+    initialRoute: 'Home'
+});
 
 const Navigator = StackNavigator(
     {
-        Auth: { screen: AuthScreen },
-        Home: { screen: HomeScreen }
+        Auth: { screen: AuthStack },
+        Home: { screen: MainStack }
     },
     {
         initialRouteName: 'Auth',

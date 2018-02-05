@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View} from 'react-native';
 import { addNavigationHelpers } from 'react-navigation';
-import { createStore, applyMiddleware } from 'redux';
 import { connect } from 'react-redux';
-import { rootReducer, middleware, addListener } from "./reducers/root";
+import { addListener } from "./reducers/root";
 import Navigator from './pages/index';
-
-export const store = createStore( rootReducer, applyMiddleware(middleware) );
 
 class App extends Component {
     render() {
