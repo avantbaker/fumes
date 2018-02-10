@@ -4,6 +4,8 @@ import {
 } from 'react-navigation';
 import AuthScreen from './AuthScreen';
 import HomeScreen from './HomeScreen';
+import DetailsScreen from "./DetailsScreen";
+import EditScreen from "./EditScreen";
 
 const AuthStack = StackNavigator({
     Login: { screen: AuthScreen }
@@ -12,7 +14,9 @@ const AuthStack = StackNavigator({
 });
 
 const MainStack = StackNavigator({
-    Home: { screen: HomeScreen }
+    Home: { screen: HomeScreen },
+    Details: { screen: DetailsScreen },
+    Edit: { screen: EditScreen }
 },{
     headerMode: 'screen',
     initialRoute: 'Home'
@@ -24,7 +28,7 @@ const Navigator = StackNavigator(
         Home: { screen: MainStack }
     },
     {
-        initialRouteName: 'Auth',
+        initialRouteName: 'Home',
         headerMode: 'none'
     }
 );

@@ -34,10 +34,6 @@ export default class AuthForm extends Component {
         this.setState({ selectedIndex });
     }
 
-    // Pass props from AuthForm to Component
-    // create an onSubmit method in each form
-            // in each onSubmit method use navigate to go to HomeScreen
-    // Pass the onSubmit method to the submitButton
     renderForm(selectedIndex) {
         const { buttons } = this.state;
         const Component = buttons[selectedIndex].component;

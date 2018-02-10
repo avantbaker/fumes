@@ -14,7 +14,7 @@ export default ({ attributes, onPress }) => {
         name,
         date,
         average
-    } = styles;
+    } = entryListStyles;
     return(
         <TouchableOpacity
             style={container}
@@ -34,7 +34,7 @@ export default ({ attributes, onPress }) => {
     );
 };
 
-const styles = {
+export const entryListStyles = {
     container: {
         height: 60,
         backgroundColor: 'white',
