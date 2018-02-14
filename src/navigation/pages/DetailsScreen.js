@@ -8,10 +8,33 @@ import {
 
 import DetailCard from '../../components/cards/DetailCard';
 import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
+import TouchableSectionResultsDisplay from '../../components/buttons/TouchableSectionResultsDisplay';
+
 import { sectionResultsDisplayStyles } from '../../components/buttons/SectionResultsDisplay';
 
 const { editWrapper, editText } = sectionResultsDisplayStyles;
 
+const DisplayForm = (props) => {
+    return (
+        <View style={{ flex: 5 }}>
+            <TouchableSectionResultsDisplay
+                title="left"
+                value={this.data.left.average}
+                onPress={this._goToEdit("Left", this.data.left)}
+            />
+            <TouchableSectionResultsDisplay
+                title="Middle"
+                value={this.data.middle.average}
+                onPress={this._goToEdit("Middle", this.data.middle)}
+            />
+            <TouchableSectionResultsDisplay
+                title="Right"
+                value={this.data.right.average}
+                onPress={this._goToEdit("Right", this.data.right)}
+            />
+        </View>
+    );
+}
 class DetailsScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
@@ -40,39 +63,21 @@ class DetailsScreen extends Component {
             <View style={styles.container}>
                 <DetailCard details={this.data} />
                 <View style={{ flex: 7 }}>
-                    <SectionResultsDisplay
-                        title="Left"
-                        value={this.data.left.average.toString()}
-                    >
-                        <TouchableOpacity
-                            style={editWrapper}
-                            onPress={this._goToEdit("Left", this.data.left)}
-                        >
-                            <Text style={editText}>Edit</Text>
-                        </TouchableOpacity>
-                    </SectionResultsDisplay>
-                    <SectionResultsDisplay
+                    <TouchableSectionResultsDisplay
+                        title="left"
+                        value={this.data.left.average}
+                        onPress={this._goToEdit("Left", this.data.left)}
+                    />
+                    <TouchableSectionResultsDisplay
                         title="Middle"
-                        value={this.data.middle.average.toString()}
-                    >
-                        <TouchableOpacity
-                            style={editWrapper}
-                            onPress={this._goToEdit("Middle", this.data.middle)}
-                        >
-                            <Text style={editText}>Edit</Text>
-                        </TouchableOpacity>
-                    </SectionResultsDisplay>
-                    <SectionResultsDisplay
+                        value={this.data.middle.average}
+                        onPress={this._goToEdit("Middle", this.data.middle)}
+                    />
+                    <TouchableSectionResultsDisplay
                         title="Right"
-                        value={this.data.right.average.toString()}
-                    >
-                        <TouchableOpacity
-                            style={editWrapper}
-                            onPress={this._goToEdit("Right", this.data.right)}
-                        >
-                            <Text style={editText}>Edit</Text>
-                        </TouchableOpacity>
-                    </SectionResultsDisplay>
+                        value={this.data.right.average}
+                        onPress={this._goToEdit("Right", this.data.right)}
+                    />
                 </View>
             </View>
         );

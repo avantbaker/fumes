@@ -4,10 +4,14 @@ import {
     View,
 } from 'react-native';
 
-import DetailCard from '../../components/cards/DetailCard';
-import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
-export default class DetailsScreen extends Component {
+import DetailCard from '../../components/cards/DetailCard';
+import EditForm from '../../components/forms/EditForm.component';
+
+class EditScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
         title: `${ navigation.state.params.name }`,
@@ -17,27 +21,13 @@ export default class DetailsScreen extends Component {
         super(props);
         const { params } = this.props.navigation.state;
         this.data = params;
-
-        this.state = {
-            six: this.data.details.six,
-            twelve: this.data.details.twelve,
-            eighteen: this.data.details.eighteen
-        };
-
-        this.updateAverage = this.updateAverage.bind(this);
     }
 
-    updateAverage(height) {
-        const _this = this;
-        return (v) => {
-            _this.setState({
-                [height]: v
-            })
-        }
+    _handleSubmit(values) {
+        console.log("Should be submitting", values);
     }
 
     render() {
-        console.log(this.data);
         return (
             <View style={styles.container}>
                 <DetailCard
@@ -45,34 +35,28 @@ export default class DetailsScreen extends Component {
                     subtitle={this.data.full.name}
                     title="Final Average"
                 />
-                <View style={{ flex: 7 }}>
-                    <SectionResultsDisplay
-                        editable
-                        title="6 in."
-                        value={this.state.six}
-                        onChangeText={this.updateAverage('six')}
-                    />
-                    <SectionResultsDisplay
-                        editable
-                        title="12 in."
-                        value={this.state.twelve}
-                        onChangeText={this.updateAverage('twelve')}
-                    />
-                    <SectionResultsDisplay
-                        editable
-                        title="18 in."
-                        value={this.state.eighteen}
-                        onChangeText={this.updateAverage('eighteen')}
-                    />
-                </View>
+                <EditForm
+                    {...this.data}
+                    style={{ flex: 5 }}
+                    onSubmit={this._handleSubmit}
+                />
             </View>
         );
     }
 }
 
+const mapStateToProps = ({ firebase: { auth } }) => ({ auth });
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps)
+)(EditScreen);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10
+    },
+    submitContainer: {
+        flex: 1,
     }
 });

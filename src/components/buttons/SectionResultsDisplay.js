@@ -11,11 +11,12 @@ export default class SectionResultsDisplay extends Component {
     render() {
 
         const {
-            value,
             title,
-            onChangeText,
+            value,
             children,
-            editable = false
+            editable = false,
+            input,
+            ...inputProps
         } = this.props;
         const {
             container,
@@ -24,17 +25,19 @@ export default class SectionResultsDisplay extends Component {
             averageWrapper,
             averageText
         } = sectionResultsDisplayStyles;
-        console.log(this.props);
         return (
             <View style={container}>
                 <View style={sideWrapper}>
                     <Text style={sideText}>{ title }</Text>
                 </View>
                 <TextInput
-                    value={value}
+                    {...inputProps}
                     textAlign="center"
                     editable={editable}
-                    onChangeText={onChangeText}
+                    onChangeText={input && input.onChange}
+                    onBlur={input && input.onBlur}
+                    onFocus={input && input.onFocus}
+                    value={input ? input.value : value }
                     style={[averageWrapper, averageText]}
                 />
                 { children }
@@ -48,7 +51,7 @@ export const sectionResultsDisplayStyles = {
         height: 85,
         marginBottom: 10,
         backgroundColor: '#a8a8a8',
-        justifySelf: 'end',
+        // justifySelf: 'end',
         flexDirection: 'row'
     },
     sideWrapper: {
