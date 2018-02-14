@@ -28,7 +28,7 @@ const Navigator = StackNavigator(
         Home: { screen: MainStack }
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Auth',
         headerMode: 'none'
     }
 );

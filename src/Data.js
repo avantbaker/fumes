@@ -8,19 +8,19 @@ export default [
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         middle: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         right: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
     },
     {
@@ -32,19 +32,19 @@ export default [
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         middle: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         right: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
     },
     {
@@ -56,19 +56,19 @@ export default [
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         middle: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         right: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
     },
     {
@@ -80,19 +80,19 @@ export default [
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         middle: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         right: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
     },
     {
@@ -104,19 +104,19 @@ export default [
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         middle: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
         right: {
             average: '68.6',
             six: '64.8',
             twelve: '79.9',
-            right: '63.3'
+            eighteen: '63.3'
         },
     }
 ];

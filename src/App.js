@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import AppWithNavigationState from './navigation/index';
-import store from './navigation/reducers/root';
+import store from './reducers/root';
 
 export default class Root extends Component {
     render() {

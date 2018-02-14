@@ -4,12 +4,15 @@ import {
     View,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { firebaseConnect } from 'react-redux-firebase'
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 import EntryListContainer from '../../components/containers/EntryListContainer';
 import EntryListItem from '../../components/buttons/EntryListItem';
 import Data from '../../Data';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         const { navigate } = navigation;
@@ -25,6 +28,15 @@ export default class HomeScreen extends Component {
             )
         }
     };
+
+    onPress() {
+        const { firebase } = this.props;
+        return () => {
+            return (item) => {
+                firebase.setWithMeta('entries', item);
+            }
+        }
+    }
     // pass navigation to EntryListContainer
     render() {
         const { container } = styles;
@@ -33,6 +45,7 @@ export default class HomeScreen extends Component {
                 <EntryListContainer
                     items={Data}
                     listItemComponent={EntryListItem}
+                    onPress={this.onPress()}
                     {...this.props}
                 />
             </View>
@@ -40,6 +53,10 @@ export default class HomeScreen extends Component {
     }
 
 }
+
+export default compose(
+    firebaseConnect(),
+)(HomeScreen);
 
 const styles = StyleSheet.create({
     container: {

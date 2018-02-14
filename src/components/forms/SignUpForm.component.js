@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
-import { FormLabel, FormInput } from 'react-native-elements';
-import { Button } from 'react-native-elements';
+import { Field, reduxForm } from 'redux-form';
+import { FormLabel, Button } from 'react-native-elements';
 import { View } from 'react-native';
 
-export default class SignUpForm extends Component {
-    onSubmit() {
+import Input from './Input.component';
 
-    }
-
+class SignUpForm extends Component {
     render() {
         return(
             <View>
                 <View>
                     <FormLabel>Email</FormLabel>
-                    <FormInput
+                    <Field
+                        name="email"
+                        component={ Input }
                         placeholder="ex. reggie@gsu.edu"
-                        onChangeText={() => {}}
                     />
                 </View>
                 <View>
                     <FormLabel>Password</FormLabel>
-                    <FormInput
+                    <Field
+                        name="password"
+                        component={ Input }
                         placeholder="ex. *********"
-                        onChangeText={() => {}}
                     />
                 </View>
                 <View>
                     <FormLabel>Confirm Password</FormLabel>
-                    <FormInput
+                    <Field
+                        name="password_confirm"
+                        component={ Input }
                         placeholder="ex. *********"
-                        onChangeText={() => {}}
                     />
                 </View>
-                <View style={{marginTop: 20}}>
-                    <Button title="Submit"/>
+                <View style={styles.submitContainer}>
+                    <Button
+                        title="Submit"
+                        onPress={this.props.handleSubmit}
+                    />
                 </View>
             </View>
         );
     }
 }
+
+const styles = {
+    submitContainer: {
+        marginTop: 20
+    }
+};
+
+export default reduxForm({ form: 'signup' })(SignUpForm);

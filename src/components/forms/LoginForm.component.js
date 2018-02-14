@@ -1,47 +1,35 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { FormLabel, FormInput } from 'react-native-elements';
-import { Button } from 'react-native-elements';
+import { Field, reduxForm } from 'redux-form';
+import { FormLabel, Button } from 'react-native-elements';
+import { View } from 'react-native';
 
-import {
-    View,
-} from 'react-native';
+import Input from './Input.component';
 
-export default class LoginForm extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-
-    }
-    handleSubmit() {
-        // This should be handled by redux action
-        const { navigate } = this.props.navigation;
-        navigate('Home')
-    }
-
+class LoginForm extends Component {
     render() {
         return(
             <View>
                 <View>
                     <FormLabel>Email</FormLabel>
-                    <FormInput
+                    <Field
+                        name="email"
+                        component={ Input }
                         placeholder="ex. reggie@gsu.edu"
-                        onChangeText={() => {}}
                     />
                 </View>
                 <View>
                     <FormLabel>Password</FormLabel>
-                    <FormInput
-                        placeholder="ex. *********"
-                        onChangeText={() => {}}
+                    <Field
+                        secureTextEntry
+                        name="password"
+                        component={ Input }
+                        placeholder="ex. **********"
                     />
                 </View>
-                <View style={{marginTop: 20}}>
+                <View style={styles.submitContainer}>
                     <Button
                         title="Submit"
-                        onPress={this.handleSubmit}
+                        onPress={this.props.handleSubmit}
                     />
                 </View>
             </View>
@@ -49,3 +37,10 @@ export default class LoginForm extends Component {
     }
 }
 
+const styles = {
+    submitContainer: {
+        marginTop: 20
+    }
+};
+
+export default reduxForm({ form: 'login' })(LoginForm);

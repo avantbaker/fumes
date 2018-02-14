@@ -3,7 +3,7 @@ import {
     NavigationActions
 } from 'react-navigation';
 
-import Navigator from '../pages/index';
+import Navigator from '../navigation/pages/index';
 
 const initialState = Navigator.router.getStateForAction(NavigationActions.init());
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View} from 'react-native';
 import { addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
-import { addListener } from "./reducers/root";
+import { addListener } from "../reducers/root";
 import Navigator from './pages/index';
 
 class App extends Component {

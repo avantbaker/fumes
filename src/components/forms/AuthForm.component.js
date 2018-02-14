@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
 import SignUpForm from './SignUpForm.component';
 import LoginForm from './LoginForm.component';
 
 import Tabs from './Tabs.component';
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
 
     constructor(props) {
         super(props);
+        const { firebase, navigation } = props;
         this.state = {
             selectedIndex: 0,
             // requirements:
@@ -18,11 +22,21 @@ export default class AuthForm extends Component {
             buttons: [
                 {
                     name: 'Login',
-                    component: LoginForm
+                    component: LoginForm,
+                    onSubmit: (values) => {
+                        firebase.login(values)
+                            .then(() => { navigation.navigate('Home') })
+                            .catch((error) => { console.log(error) })
+                    }
                 },
                 {
                     name: 'Sign Up',
-                    component: SignUpForm
+                    component: SignUpForm,
+                    onSubmit: (values) => {
+                        firebase.createUser(JSON.parse(values))
+                            .then((data) => { console.log(data) })
+                            .catch((error) => { console.log(error) })
+                    }
                 }
             ]
         };
@@ -37,7 +51,12 @@ export default class AuthForm extends Component {
     renderForm(selectedIndex) {
         const { buttons } = this.state;
         const Component = buttons[selectedIndex].component;
-        return <Component {...this.props} />;
+        return (
+            <Component
+                {...this.props}
+                onSubmit={buttons[selectedIndex].onSubmit}
+            />
+        );
     }
 
     render() {
@@ -57,3 +76,8 @@ export default class AuthForm extends Component {
         )
     }
 }
+
+export default compose(
+   firebaseConnect(),
+   connect(({ firebase: { auth } }) => ({ auth }))
+)(AuthForm);
