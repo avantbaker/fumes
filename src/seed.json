@@ -1,0 +1,49 @@
+{
+  "RrjwJ0GDScN8LRQtpnH2fkuqJXh2" : [{
+    "average" : 70.4,
+    "date" : "1/10/18",
+    "left" : {
+      "average" : 68.6,
+      "eighteen" : 63.3,
+      "six" : 64.6,
+      "twelve" : 79.9
+    },
+    "location" : "Science Building 1",
+    "middle" : {
+      "average" : 83.4,
+      "eighteen" : 90.5,
+      "six" : 74.1,
+      "twelve" : 80.5
+    },
+    "name" : "Center Room Fume-hood #1",
+    "right" : {
+      "average" : 70.4,
+      "eighteen" : 70.4,
+      "six" : 60.1,
+      "twelve" : 80.5
+    }
+  }, {
+    "average" : 74.4,
+    "date" : "1/9/18",
+    "left" : {
+      "average" : 68.6,
+      "eighteen" : 63.3,
+      "six" : 64.6,
+      "twelve" : 79.9
+    },
+    "location" : "Science Building 2",
+    "middle" : {
+      "average" : 83.4,
+      "eighteen" : 90.5,
+      "six" : 74.1,
+      "twelve" : 80.5
+    },
+    "name" : "Center Room Fume-hood #2",
+    "right" : {
+      "average" : 70.4,
+      "eighteen" : 70.4,
+      "six" : 60.1,
+      "twelve" : 80.5
+    }
+  }]
+}

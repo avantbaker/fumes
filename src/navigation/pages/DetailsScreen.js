@@ -36,14 +36,13 @@ class DetailsScreen extends Component {
     }
 
     render() {
-        console.log(this.data);
         return (
             <View style={styles.container}>
                 <DetailCard details={this.data} />
                 <View style={{ flex: 7 }}>
                     <SectionResultsDisplay
                         title="Left"
-                        value={this.data.left.average}
+                        value={this.data.left.average.toString()}
                     >
                         <TouchableOpacity
                             style={editWrapper}
@@ -54,7 +53,7 @@ class DetailsScreen extends Component {
                     </SectionResultsDisplay>
                     <SectionResultsDisplay
                         title="Middle"
-                        value={this.data.middle.average}
+                        value={this.data.middle.average.toString()}
                     >
                         <TouchableOpacity
                             style={editWrapper}
@@ -65,7 +64,7 @@ class DetailsScreen extends Component {
                     </SectionResultsDisplay>
                     <SectionResultsDisplay
                         title="Right"
-                        value={this.data.right.average}
+                        value={this.data.right.average.toString()}
                     >
                         <TouchableOpacity
                             style={editWrapper}

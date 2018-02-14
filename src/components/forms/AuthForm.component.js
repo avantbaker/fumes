@@ -25,7 +25,9 @@ class AuthForm extends Component {
                     component: LoginForm,
                     onSubmit: (values) => {
                         firebase.login(values)
-                            .then(() => { navigation.navigate('Home') })
+                            .then(({ user }) => {
+                                navigation.navigate('Home', { user })
+                            })
                             .catch((error) => { console.log(error) })
                     }
                 },
@@ -33,7 +35,7 @@ class AuthForm extends Component {
                     name: 'Sign Up',
                     component: SignUpForm,
                     onSubmit: (values) => {
-                        firebase.createUser(JSON.parse(values))
+                        firebase.createUser(values)
                             .then((data) => { console.log(data) })
                             .catch((error) => { console.log(error) })
                     }

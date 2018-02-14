@@ -12,6 +12,8 @@ import EntryListContainer from '../../components/containers/EntryListContainer';
 import EntryListItem from '../../components/buttons/EntryListItem';
 import Data from '../../Data';
 
+import { getEntries } from "../../actions/EntryActions";
+
 class HomeScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -28,24 +30,29 @@ class HomeScreen extends Component {
             )
         }
     };
+    constructor(props) {
+        super(props);
 
-    onPress() {
-        const { firebase } = this.props;
-        return () => {
-            return (item) => {
-                firebase.setWithMeta('entries', item);
-            }
+        this.state = {
+            data: []
         }
+    }
+    componentWillMount() {
+        this.data = null;
+        const { firebase, navigation } = this.props;
+        const userId = navigation.state.params.user.uid;
+        firebase.ref(`entries/${userId}`).on('value', (snapshot) => {
+            this.setState({ data: snapshot.val() });
+        })
     }
     // pass navigation to EntryListContainer
     render() {
         const { container } = styles;
-        return(
+        return this.state.data && (
             <View style={container}>
                 <EntryListContainer
-                    items={Data}
+                    items={this.state.data}
                     listItemComponent={EntryListItem}
-                    onPress={this.onPress()}
                     {...this.props}
                 />
             </View>
@@ -54,8 +61,17 @@ class HomeScreen extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth,
+        entries: state.firebase
+    }
+};
+
+
 export default compose(
     firebaseConnect(),
+    connect(mapStateToProps, { getEntries })
 )(HomeScreen);
 
 const styles = StyleSheet.create({

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { ListItem, List } from 'react-native-elements';
 
-export default ({ items, listItemComponent, navigation, onPress }) => {
+export default ({ items, listItemComponent, navigation }) => {
 
     // create a function that takes an object and returns a function that navigates to same page with the object as the params ( Details )
     const { cardContainerStyles, listItemContainerStyles } = styles;
@@ -13,15 +13,18 @@ export default ({ items, listItemComponent, navigation, onPress }) => {
     return (
         <List containerStyle={cardContainerStyles}>
             {
-                items.map((item, i) => (
-                    <ListItem
-                        key={i}
-                        attributes={item}
-                        component={listItemComponent}
-                        containerStyle={listItemContainerStyles}
-                        onPress={onPress(item)}
-                    />
-                ))
+                items.map((item, i) => {
+                    console.log(item);
+                    return (
+                        <ListItem
+                            key={i}
+                            attributes={item}
+                            component={listItemComponent}
+                            containerStyle={listItemContainerStyles}
+                            onPress={_goToDetails(item)}
+                        />
+                    )
+                })
             }
         </List>
     );
