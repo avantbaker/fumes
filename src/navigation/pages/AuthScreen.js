@@ -4,7 +4,6 @@ import {
     View,
     Text
 } from 'react-native';
-import { FIREBASE } from "../../App";
 
 import AuthForm from '../../components/forms/AuthForm.component';
 

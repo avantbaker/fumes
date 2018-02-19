@@ -6,11 +6,11 @@ import {
 
 import DetailTitle from './DetailTitle';
 
-export default ({ details: { location, name, date, average }, subtitle, title, rightSubtitle }) => {
+export default ({ details: { location, name, date, average }, subtitle, title, rightSubtitle, displayText }) => {
     const { titleWrapper, averageText } = styles;
     return (
         <View style={titleWrapper}>
-            <Text style={averageText}>{ average }</Text>
+            <Text style={averageText}>{ displayText || average }</Text>
             <DetailTitle
                 location={subtitle || location}
                 name={title || name}

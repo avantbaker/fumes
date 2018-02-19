@@ -10,9 +10,6 @@ import { connect } from 'react-redux';
 
 import EntryListContainer from '../../components/containers/EntryListContainer';
 import EntryListItem from '../../components/buttons/EntryListItem';
-import Data from '../../Data';
-
-import { getEntries } from "../../actions/EntryActions";
 
 class HomeScreen extends Component {
 
@@ -30,48 +27,32 @@ class HomeScreen extends Component {
             )
         }
     };
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            data: []
-        }
-    }
-    componentWillMount() {
-        this.data = null;
-        const { firebase, navigation } = this.props;
-        const userId = navigation.state.params.user.uid;
-        firebase.ref(`entries/${userId}`).on('value', (snapshot) => {
-            this.setState({ data: snapshot.val() });
-        })
-    }
-    // pass navigation to EntryListContainer
     render() {
+        const { entries } = this.props;
         const { container } = styles;
-        return this.state.data && (
+        return (
             <View style={container}>
-                <EntryListContainer
-                    items={this.state.data}
-                    listItemComponent={EntryListItem}
-                    {...this.props}
-                />
+                {
+                    entries &&
+                    <EntryListContainer
+                        items={entries}
+                        listItemComponent={EntryListItem}
+                        {...this.props}
+                    />
+                }
             </View>
         );
     }
-
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.firebase.auth,
-        entries: state.firebase
-    }
-};
-
-
 export default compose(
-    firebaseConnect(),
-    connect(mapStateToProps, { getEntries })
+    firebaseConnect(({ navigation: { state: { params: { user }}}}) => ([
+        `entries/${user.uid}`
+    ])),
+    connect(({ firebase: { data }}, { navigation: { state: { params: { user }}}}) => ({
+        entries: data.entries && data.entries[user.uid]
+    }))
 )(HomeScreen);
 
 const styles = StyleSheet.create({

@@ -13,8 +13,9 @@ export default ({ items, listItemComponent, navigation }) => {
     return (
         <List containerStyle={cardContainerStyles}>
             {
-                items.map((item, i) => {
-                    console.log(item);
+                Object.keys(items).map((key, i) => {
+                    let item = items[key];
+                    item = Object.assign({}, item, { id: key });
                     return (
                         <ListItem
                             key={i}

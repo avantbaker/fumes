@@ -16,27 +16,55 @@ class EditScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${ navigation.state.params.name }`,
     });
-
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
-        this.data = params;
+
+        this._handleSubmit = this._handleSubmit.bind(this);
     }
 
     _handleSubmit(values) {
-        console.log("Should be submitting", values);
+        const { firebase, entry, navigation: { state: { params: { userId, entryId, name }}} } = this.props;
+
+        const newDetails = this.combine(values, { average: this.computeAverage(values) });
+        const updatedEntry = this.combine(entry, { [name.toLowerCase()]: newDetails });
+        const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
+
+        updatedEntry.average = this.computeAverage(updatedEntryAverages);
+
+        firebase.update(`entries/${userId}/${entryId}`, updatedEntry);
+    }
+
+    combine(base, update) {
+        return Object.assign({}, base, update);
+    }
+
+    computeAverage(averages) {
+
+        let value;
+
+        if(averages && typeof averages === 'object') {
+            value = (Object.values(averages).reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+        }
+
+        if(averages && Array.isArray(averages)) {
+            value = (averages.reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+        }
+
+        return value;
     }
 
     render() {
+        const { entry, details } = this.props;
         return (
             <View style={styles.container}>
                 <DetailCard
-                    details={this.data.full}
-                    subtitle={this.data.full.name}
+                    details={entry}
+                    subtitle={entry.name}
+                    displayText={details.average}
                     title="Final Average"
                 />
                 <EditForm
-                    {...this.data}
+                    details={details}
                     style={{ flex: 5 }}
                     onSubmit={this._handleSubmit}
                 />
@@ -45,10 +73,14 @@ class EditScreen extends Component {
     }
 }
 
-const mapStateToProps = ({ firebase: { auth } }) => ({ auth });
 export default compose(
-    firebaseConnect(),
-    connect(mapStateToProps)
+    firebaseConnect(({ navigation: { state: { params: { userId, entryId }}}}) => ([
+        `entries/${userId}/${entryId}`
+    ])),
+    connect(({ firebase: { data }}, { navigation: { state: { params: { userId, entryId, name }}}}) => ({
+        entry: data.entries && data.entries[userId][entryId],
+        details: data.entries && data.entries[userId][entryId][name.toLowerCase()]
+    }))
 )(EditScreen);
 
 const styles = StyleSheet.create({

@@ -2,39 +2,14 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    TouchableOpacity,
-    Text
 } from 'react-native';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
 
 import DetailCard from '../../components/cards/DetailCard';
-import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
-import TouchableSectionResultsDisplay from '../../components/buttons/TouchableSectionResultsDisplay';
+import DisplayForm from "../../components/forms/DisplayForm.component";
 
-import { sectionResultsDisplayStyles } from '../../components/buttons/SectionResultsDisplay';
-
-const { editWrapper, editText } = sectionResultsDisplayStyles;
-
-const DisplayForm = (props) => {
-    return (
-        <View style={{ flex: 5 }}>
-            <TouchableSectionResultsDisplay
-                title="left"
-                value={this.data.left.average}
-                onPress={this._goToEdit("Left", this.data.left)}
-            />
-            <TouchableSectionResultsDisplay
-                title="Middle"
-                value={this.data.middle.average}
-                onPress={this._goToEdit("Middle", this.data.middle)}
-            />
-            <TouchableSectionResultsDisplay
-                title="Right"
-                value={this.data.right.average}
-                onPress={this._goToEdit("Right", this.data.right)}
-            />
-        </View>
-    );
-}
 class DetailsScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
@@ -43,48 +18,45 @@ class DetailsScreen extends Component {
 
     constructor(props) {
         super(props);
-        const { params } = this.props.navigation.state;
-        this.data = params;
+        this._goToEdit = this._goToEdit.bind(this);
     }
 
     _goToEdit(title, data) {
-        const { navigate, state: { params } } = this.props.navigation;
+        const { navigation: { state, navigate }, entry } = this.props;
         return () => {
             navigate('Edit', {
                 details: data,
-                full: this.data,
+                userId: entry.createdBy,
+                entryId: state.params.id,
                 name: title
             });
         }
     }
 
     render() {
+        const { entry } = this.props;
+        console.log(entry);
         return (
             <View style={styles.container}>
-                <DetailCard details={this.data} />
-                <View style={{ flex: 7 }}>
-                    <TouchableSectionResultsDisplay
-                        title="left"
-                        value={this.data.left.average}
-                        onPress={this._goToEdit("Left", this.data.left)}
-                    />
-                    <TouchableSectionResultsDisplay
-                        title="Middle"
-                        value={this.data.middle.average}
-                        onPress={this._goToEdit("Middle", this.data.middle)}
-                    />
-                    <TouchableSectionResultsDisplay
-                        title="Right"
-                        value={this.data.right.average}
-                        onPress={this._goToEdit("Right", this.data.right)}
-                    />
-                </View>
+                <DetailCard details={entry} />
+                <DisplayForm
+                    entry={entry}
+                    style={{ flex: 5 }}
+                    navigator={this._goToEdit}
+                />
             </View>
         );
     }
 }
 
-export default DetailsScreen;
+export default compose(
+    firebaseConnect(({ navigation: { state: { params: { id, createdBy }}}}) => ([
+        `entries/${createdBy}/${id}`
+    ])),
+    connect(({ firebase: { data }}, { navigation: { state: { params: { id, createdBy }}}}) => ({
+        entry: data.entries && data.entries[createdBy][id]
+    }))
+)(DetailsScreen);
 
 const styles = StyleSheet.create({
     container: {
