@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SvgUri from 'react-native-svg-uri';
+
 import {
     StyleSheet,
     View,
@@ -11,8 +13,11 @@ export default class App extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ alignSelf: 'center', fontSize: 40 }}>FUMES</Text>
-                <AuthForm style={{ marginTop: 50 }} {...this.props} />
+                <View style={styles.logo}>
+                    <SvgUri width="100" height="100" source={require('../../assets/fumeslogo2.svg')} />
+                </View>
+                <Text style={styles.logoText}>FUMES</Text>
+                <AuthForm style={styles.authForm} {...this.props} />
             </View>
         );
     }
@@ -21,6 +26,22 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 180
+        paddingTop: 60,
+        backgroundColor: '#00171f'
+    },
+    logo: {
+        alignItems: 'center'
+    },
+    logoText: {
+        alignSelf: 'center',
+        fontSize: 40,
+        color: '#fff'
+    },
+    authForm: {
+        marginTop: 50,
+        backgroundColor: '#003459',
+        marginLeft: 25,
+        marginRight: 25,
+        paddingBottom: 20
     }
 });

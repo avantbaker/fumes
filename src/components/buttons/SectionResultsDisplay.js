@@ -16,6 +16,7 @@ export default class SectionResultsDisplay extends Component {
             children,
             editable = false,
             input,
+            style,
             ...inputProps
         } = this.props;
         const {
@@ -38,7 +39,7 @@ export default class SectionResultsDisplay extends Component {
                     onBlur={input && input.onBlur}
                     onFocus={input && input.onFocus}
                     value={input ? input.value : value }
-                    style={[averageWrapper, averageText]}
+                    style={[averageWrapper, averageText, style && style]}
                 />
                 { children }
             </View>
@@ -50,34 +51,42 @@ export const sectionResultsDisplayStyles = {
     container: {
         height: 85,
         marginBottom: 10,
-        backgroundColor: '#a8a8a8',
-        // justifySelf: 'end',
         flexDirection: 'row'
     },
     sideWrapper: {
         flex: 2,
+        backgroundColor: 'rgba(0, 127, 198, 0.25)',
+        borderLeftColor: '#02dccf',
+        borderLeftWidth: 3,
         alignItems: 'center',
         justifyContent: 'center'
     },
     sideText: {
+        color: '#fff',
         fontSize: 18
     },
     averageText: {
         fontSize: 24,
-        color: 'black'
+        color: '#02dccf'
     },
     editText: {
-        fontSize: 18
+        fontSize: 18,
+        color: '#fff'
     },
     averageWrapper: {
         flex: 3,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        borderLeftColor: 'rgba(2,220,207,0.25)',
+        borderLeftWidth: 3,
+        backgroundColor: 'rgba(0, 127, 198, 0.05)'
     },
     editWrapper: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderLeftColor: '#02dccf',
+        borderLeftWidth: 3,
+        backgroundColor: 'rgba(0, 127, 198, 0.25)',
     }
 };

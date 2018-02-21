@@ -68,7 +68,11 @@ class AuthForm extends Component {
                 <Tabs
                     buttons={buttons}
                     activeTab={selectedIndex}
-                    containerStyle={{ height: 60 }}
+                    containerStyle={{ height: 60, marginRight: 0, marginLeft: 0, marginTop: 0, borderRadius: 0, borderWidth: 0 }}
+                    innerBorderStyle={{ color: '#00171f', width: 1 }}
+                    buttonStyle={{ backgroundColor: '#003459', borderBottomColor: 'rgba(0, 127, 198, 0.22)', borderBottomWidth: 3}}
+                    selectedButtonStyle={{ borderBottomColor: '#02dccf', borderBottomWidth: 3 }}
+                    selectedTextStyle={{ color: '#fff'}}
                     updateActiveTab={this.updateIndex}
                 />
                 <View>

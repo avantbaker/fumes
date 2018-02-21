@@ -10,33 +10,38 @@ class SignUpForm extends Component {
         return(
             <View>
                 <View>
-                    <FormLabel>Email</FormLabel>
                     <Field
                         name="email"
                         component={ Input }
-                        placeholder="ex. reggie@gsu.edu"
+                        placeholder="Email"
+                        inputStyle={styles.fieldInputStyles}
+                        containerStyle={[styles.fieldContainerStyles, { marginTop: 20 }]}
                     />
                 </View>
                 <View>
-                    <FormLabel>Password</FormLabel>
                     <Field
                         name="password"
                         component={ Input }
-                        placeholder="ex. *********"
+                        placeholder="Password"
+                        inputStyle={styles.fieldInputStyles}
+                        containerStyle={styles.fieldContainerStyles}
                     />
                 </View>
                 <View>
-                    <FormLabel>Confirm Password</FormLabel>
                     <Field
                         name="password_confirm"
                         component={ Input }
-                        placeholder="ex. *********"
+                        placeholder="Confirm password"
+                        inputStyle={styles.fieldInputStyles}
+                        containerStyle={[styles.fieldContainerStyles, { marginBottom: 10 }]}
                     />
                 </View>
                 <View style={styles.submitContainer}>
                     <Button
                         title="Submit"
                         onPress={this.props.handleSubmit}
+                        textStyle={{ fontWeight: '900' }}
+                        buttonStyle={{ backgroundColor: 'rgba(0, 127, 198, 0.25)' }}
                     />
                 </View>
             </View>
@@ -47,6 +52,24 @@ class SignUpForm extends Component {
 const styles = {
     submitContainer: {
         marginTop: 20
+    },
+    fieldContainerStyles: {
+        borderBottomWidth: 3,
+        borderBottomColor: '#02dccf',
+        backgroundColor: 'rgba(0, 127, 198, 0.25)',
+        height: 50,
+        marginTop: 5,
+        marginBottom: 15
+    },
+    fieldInputStyles: {
+        color: '#fff',
+        paddingLeft: 10,
+        paddingTop: 10,
+        fontSize: 15,
+    },
+    labelStyle: {
+        marginBottom: 5,
+        color: '#fff'
     }
 };
 

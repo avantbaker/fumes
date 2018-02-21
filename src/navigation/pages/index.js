@@ -19,7 +19,16 @@ const MainStack = StackNavigator({
     Edit: { screen: EditScreen }
 },{
     headerMode: 'screen',
-    initialRoute: 'Home'
+    initialRoute: 'Home',
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: '#00171f',
+            borderBottomColor: '#02dccf',
+            borderBottomWidth: 3,
+            height: 60
+        },
+        headerBackTitle: null
+    }
 });
 
 const Navigator = StackNavigator(
@@ -29,7 +38,7 @@ const Navigator = StackNavigator(
     },
     {
         initialRouteName: 'Auth',
-        headerMode: 'none'
+        headerMode: 'none',
     }
 );
 

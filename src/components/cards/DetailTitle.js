@@ -8,7 +8,7 @@ import { entryListStyles } from '../buttons/EntryListItem';
 
 const DetailTitle = ({ location, name, date }) => {
     return (
-        <View style={[entryListStyles.contentWrapper, { backgroundColor: '#a8a8a8', padding: 10 }]}>
+        <View style={[entryListStyles.contentWrapper, { borderTopColor: '#02dccf', borderTopWidth: 3, padding: 10 }]}>
             <View style={entryListStyles.spacing}>
                 <Text style={entryListStyles.location}>{ location }</Text>
                 <Text style={entryListStyles.name}>{ name }</Text>

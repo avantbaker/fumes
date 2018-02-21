@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    Text
 } from 'react-native';
 
 import { compose } from 'redux';
@@ -14,8 +15,9 @@ import EditForm from '../../components/forms/EditForm.component';
 class EditScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
-        title: `${ navigation.state.params.name }`,
+        title: (<Text style={{ color: '#fff' }}>{ navigation.state.params.name }</Text>),
     });
+
     constructor(props) {
         super(props);
 
@@ -86,7 +88,8 @@ export default compose(
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10
+        padding: 10,
+        backgroundColor: '#00171f'
     },
     submitContainer: {
         flex: 1,

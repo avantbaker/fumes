@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     cardContainerStyles: {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
-        padding: 10,
         flex: 1,
         marginTop: 0
     },

@@ -37,11 +37,11 @@ export default ({ attributes, onPress }) => {
 export const entryListStyles = {
     container: {
         height: 60,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 127, 198, 0.25)',
         marginBottom: 12,
         padding: 8,
         borderLeftWidth: 4,
-        borderLeftColor: 'black'
+        borderLeftColor: '#02dccf'
     },
     contentWrapper: {
         flex: 1,
@@ -52,19 +52,23 @@ export const entryListStyles = {
         justifyContent: 'space-between'
     },
     location: {
-        fontSize: 12
+        fontSize: 12,
+        color: '#007fc6'
     },
     name: {
         fontSize: 18,
+        color: '#fff',
         fontWeight: 'bold'
     },
     date: {
         textAlign: 'right',
         fontSize: 10,
-        marginRight: 2
+        marginRight: 2,
+        color: '#007fc6'
     },
     average: {
         textAlign: 'right',
+        color: '#02dccf',
         fontSize: 30
     }
 };

@@ -10,13 +10,17 @@ export default class Tabs extends Component {
     }
 
     render() {
-        const { buttons, activeTab, updateActiveTab, containerStyle = {} } = this.props;
+        const { buttons, activeTab, updateActiveTab, containerStyle = {}, buttonStyle = {}, selectedButtonStyle = {}, innerBorderStyle = {}, selectedTextStyle = {} } = this.props;
         return (
             <ButtonGroup
                 onPress={ updateActiveTab }
                 selectedIndex={ activeTab }
                 buttons={ Tabs.renderButtons(buttons) }
                 containerStyle={containerStyle}
+                buttonStyle={buttonStyle}
+                selectedButtonStyle={selectedButtonStyle}
+                selectedTextStyle={selectedTextStyle}
+                innerBorderStyle={innerBorderStyle}
             />
         );
     }

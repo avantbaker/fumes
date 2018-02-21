@@ -23,12 +23,13 @@ export default ({ details: { location, name, date, average }, subtitle, title, r
 const styles = {
     titleWrapper: {
         height: 205,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 127, 198, 0.25)',
         justifyContent: 'flex-end',
-        marginBottom: 20
+        marginBottom: 20,
     },
     averageText: {
         alignSelf: 'center',
-        fontSize: 120
+        fontSize: 120,
+        color: '#fff',
     }
 };

@@ -29,6 +29,7 @@ export default (props) => {
                     { fontSize: 14 },
                     inputStyle && inputStyle,
                 ]}
+                placeholderTextColor={'#fff'}
             />
         </View>
     );
@@ -55,9 +56,9 @@ const inputStyles = StyleSheet.create({
             },
             ios: {
                 minHeight: 36,
-                width: width,
+                width: width - 30,
             },
         }),
-        color: '#393E41',
+        color: '#fff',
     },
 });

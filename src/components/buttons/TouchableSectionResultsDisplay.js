@@ -7,9 +7,10 @@ import {
 import SectionResultsDisplay, { sectionResultsDisplayStyles } from './SectionResultsDisplay';
 const { editWrapper, editText } = sectionResultsDisplayStyles;
 
-const TouchableSectionResultsDisplay = ({ value, title, onPress }) => {
+const TouchableSectionResultsDisplay = ({ value, title, onPress, style }) => {
     return (
         <SectionResultsDisplay
+            style={style}
             title={title}
             value={value.toString()}
         >

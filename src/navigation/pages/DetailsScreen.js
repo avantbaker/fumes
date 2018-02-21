@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    Text
 } from 'react-native';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
@@ -13,7 +14,7 @@ import DisplayForm from "../../components/forms/DisplayForm.component";
 class DetailsScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
-        title: `${ navigation.state.params.name }`,
+        title: `${navigation.state.params.name }`,
     });
 
     constructor(props) {
@@ -35,7 +36,6 @@ class DetailsScreen extends Component {
 
     render() {
         const { entry } = this.props;
-        console.log(entry);
         return (
             <View style={styles.container}>
                 <DetailCard details={entry} />
@@ -61,6 +61,8 @@ export default compose(
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10
+        padding: 15,
+        paddingTop: 20,
+        backgroundColor: '#00171f',
     }
 });
