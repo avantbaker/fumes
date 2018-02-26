@@ -4,11 +4,9 @@ import {
     StyleSheet,
     Text
 } from 'react-native';
-
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 
-import { reduxForm, Field } from 'redux-form';
-import { Button } from 'react-native-elements';
 import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
 
 class EditForm extends Component {
@@ -49,26 +47,9 @@ class EditForm extends Component {
                     value={this.props.initialValues.eighteen}
                     title="18 in."
                 />
-                {/*<Field*/}
-                    {/*name="six"*/}
-                    {/*component={ EditForm.renderSix }*/}
-                {/*/>*/}
-                {/*<Field*/}
-                    {/*name="twelve"*/}
-                    {/*component={ EditForm.renderTwelve }*/}
-                {/*/>*/}
-                {/*<Field*/}
-                    {/*name="eighteen"*/}
-                    {/*component={ EditForm.renderEighteen }*/}
-                {/*/>*/}
-                <Text style={{ color: '#007fc6', alignSelf: 'center' }}>
+                <Text style={styles.helperText}>
                     Click number to edit
                 </Text>
-                {/*<Button*/}
-                    {/*title="Submit"*/}
-                    {/*containerStyle={styles.submitContainer}*/}
-                    {/*onPress={this.props.handleSubmit}*/}
-                {/*/>*/}
             </View>
         );
     }
@@ -94,5 +75,9 @@ const styles = StyleSheet.create({
     },
     submitContainer: {
         flex: 1,
+    },
+    helperText: {
+        color: '#007fc6',
+        alignSelf: 'center'
     }
 });
