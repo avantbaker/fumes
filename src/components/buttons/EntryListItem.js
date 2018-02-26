@@ -53,22 +53,27 @@ export const entryListStyles = {
     },
     location: {
         fontSize: 12,
-        color: '#007fc6'
+        color: '#007fc6',
+        fontFamily: 'MyriadPro-Regular'
     },
     name: {
-        fontSize: 18,
+        paddingTop: 4,
+        fontSize: 22,
         color: '#fff',
+        fontFamily: 'PTSans-Narrow',
         fontWeight: 'bold'
     },
     date: {
         textAlign: 'right',
         fontSize: 10,
         marginRight: 2,
-        color: '#007fc6'
+        color: '#007fc6',
+        fontFamily: 'MyriadPro-Regular'
     },
     average: {
         textAlign: 'right',
         color: '#02dccf',
-        fontSize: 30
+        fontSize: 30,
+        fontFamily: 'Impact'
     }
 };

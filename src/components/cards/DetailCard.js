@@ -31,5 +31,6 @@ const styles = {
         alignSelf: 'center',
         fontSize: 120,
         color: '#fff',
+        fontFamily: 'Impact'
     }
 };

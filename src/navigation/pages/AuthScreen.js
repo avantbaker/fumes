@@ -16,7 +16,7 @@ export default class App extends Component {
                 <View style={styles.logo}>
                     <SvgUri width="100" height="100" source={require('../../assets/fumeslogo2.svg')} />
                 </View>
-                <Text style={styles.logoText}>FUMES</Text>
+                <Text style={styles.logoText}>FumeS</Text>
                 <AuthForm style={styles.authForm} {...this.props} />
             </View>
         );
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     logoText: {
+        fontFamily: 'Impact',
         alignSelf: 'center',
         fontSize: 40,
         color: '#fff'

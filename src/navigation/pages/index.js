@@ -6,6 +6,7 @@ import AuthScreen from './AuthScreen';
 import HomeScreen from './HomeScreen';
 import DetailsScreen from "./DetailsScreen";
 import EditScreen from "./EditScreen";
+import SubEditScreen from './SubEditScreen';
 
 const AuthStack = StackNavigator({
     Login: { screen: AuthScreen }
@@ -16,7 +17,8 @@ const AuthStack = StackNavigator({
 const MainStack = StackNavigator({
     Home: { screen: HomeScreen },
     Details: { screen: DetailsScreen },
-    Edit: { screen: EditScreen }
+    Edit: { screen: EditScreen },
+    SubEdit: { screen: SubEditScreen }
 },{
     headerMode: 'screen',
     initialRoute: 'Home',
@@ -27,6 +29,10 @@ const MainStack = StackNavigator({
             borderBottomWidth: 3,
             height: 60
         },
+        headerTitleStyle: {
+            fontFamily: 'PTSans-Narrow'
+        },
+        headerTintColor: '#fff',
         headerBackTitle: null
     }
 });

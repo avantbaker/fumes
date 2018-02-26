@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { FormLabel, Button } from 'react-native-elements';
 import { View } from 'react-native';
@@ -14,8 +15,8 @@ class LoginForm extends Component {
                         name="email"
                         component={ Input }
                         placeholder="Email"
-                        inputStyle={styles.fieldInputStyles}
-                        containerStyle={[styles.fieldContainerStyles, { marginTop: 20 }]}
+                        inputStyle={[styles.fieldInputStyles, styles.font ]}
+                        containerStyle={[styles.fieldContainerStyles, styles.emailContainer ]}
                     />
                 </View>
                 <View>
@@ -24,16 +25,16 @@ class LoginForm extends Component {
                         name="password"
                         component={ Input }
                         placeholder="Password"
-                        inputStyle={styles.fieldInputStyles}
-                        containerStyle={[styles.fieldContainerStyles, { marginBottom: 10 }]}
+                        inputStyle={[styles.fieldInputStyles, styles.font ]}
+                        containerStyle={[styles.fieldContainerStyles, styles.passwordContainer ]}
                     />
                 </View>
                 <View style={styles.submitContainer}>
                     <Button
                         title="Submit"
                         onPress={this.props.handleSubmit}
-                        textStyle={{ fontWeight: '900' }}
-                        buttonStyle={{ backgroundColor: 'rgba(0, 127, 198, 0.25)' }}
+                        textStyle={styles.submitText}
+                        buttonStyle={styles.submitButton}
                     />
                 </View>
             </View>
@@ -62,7 +63,32 @@ const styles = {
     labelStyle: {
         marginBottom: 5,
         color: '#fff'
+    },
+    font: {
+        fontFamily: 'PTSans-Narrow'
+    },
+    emailContainer: {
+        marginTop: 20
+    },
+    passwordContainer: {
+        marginBottom: 10
+    },
+    submitText: {
+        fontWeight: '900',
+        fontFamily: 'PTSans-Narrow'
+    },
+    submitButton: {
+        backgroundColor: 'rgba(0, 127, 198, 0.25)'
     }
 };
 
-export default reduxForm({ form: 'login' })(LoginForm);
+const Login = reduxForm({ form: 'login' })(LoginForm);
+
+export default connect(
+    (state) => ({
+        initialValues: {
+            email: 'b.avant89@gmail.com',
+            password: 'Chitown1',
+        }
+    })
+)(Login);

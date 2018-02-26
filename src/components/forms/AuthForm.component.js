@@ -63,16 +63,27 @@ class AuthForm extends Component {
 
     render() {
         const { selectedIndex, buttons } = this.state;
+
+        const {
+            containerStyle,
+            innerBorderStyle,
+            buttonStyle,
+            selectedButtonStyle,
+            selectedTextStyle,
+            textStyle
+        } = styles;
+
         return(
             <View style={this.props.style}>
                 <Tabs
                     buttons={buttons}
                     activeTab={selectedIndex}
-                    containerStyle={{ height: 60, marginRight: 0, marginLeft: 0, marginTop: 0, borderRadius: 0, borderWidth: 0 }}
-                    innerBorderStyle={{ color: '#00171f', width: 1 }}
-                    buttonStyle={{ backgroundColor: '#003459', borderBottomColor: 'rgba(0, 127, 198, 0.22)', borderBottomWidth: 3}}
-                    selectedButtonStyle={{ borderBottomColor: '#02dccf', borderBottomWidth: 3 }}
-                    selectedTextStyle={{ color: '#fff'}}
+                    containerStyle={containerStyle}
+                    innerBorderStyle={innerBorderStyle}
+                    buttonStyle={buttonStyle}
+                    selectedButtonStyle={selectedButtonStyle}
+                    selectedTextStyle={selectedTextStyle}
+                    textStyle={textStyle}
                     updateActiveTab={this.updateIndex}
                 />
                 <View>
@@ -87,3 +98,33 @@ export default compose(
    firebaseConnect(),
    connect(({ firebase: { auth } }) => ({ auth }))
 )(AuthForm);
+
+const styles = {
+    containerStyle: {
+        height: 60,
+        marginRight: 0,
+        marginLeft: 0,
+        marginTop: 0,
+        borderRadius: 0,
+        borderWidth: 0
+    },
+    innerBorderStyle: {
+        color: '#00171f',
+        width: 1
+    },
+    buttonStyle: {
+        backgroundColor: '#003459',
+        borderBottomColor: 'rgba(0, 127, 198, 0.22)',
+        borderBottomWidth: 3
+    },
+    selectedButtonStyle: {
+        borderBottomColor: '#02dccf',
+        borderBottomWidth: 3
+    },
+    selectedTextStyle: {
+        color: '#fff'
+    },
+    textStyle: {
+        fontFamily: "PTSans-Narrow"
+    }
+};

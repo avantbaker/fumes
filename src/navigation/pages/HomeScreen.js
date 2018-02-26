@@ -27,12 +27,6 @@ class HomeScreen extends Component {
                     size={18}
                 />
             ),
-            // headerStyle: {
-            //     backgroundColor: '#00171f',
-            //     borderBottomColor: '#02dccf',
-            //     borderBottomWidth: 3,
-            //     height: 60
-            // }
         }
     };
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Text
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -16,56 +17,58 @@ class EditForm extends Component {
         title: `${ navigation.state.params.name }`,
     });
 
-    static renderSix(props) {
-        return(
-            <SectionResultsDisplay
-                {...props}
-                editable
-                title="6 in."
-            />
-        )
+    constructor(props) {
+        super(props);
+
+        this._goToSubEdit = this._goToSubEdit.bind(this);
     }
 
-    static renderTwelve(props) {
-        return(
-            <SectionResultsDisplay
-                {...props}
-                editable
-                title="12 in."
-            />
-        );
-    }
-
-    static renderEighteen(props) {
-        return(
-            <SectionResultsDisplay
-                {...props}
-                editable
-                title="18 in."
-            />
-        );
+    _goToSubEdit() {
+        const { navigate } = this.props.navigation;
+        navigate('SubEdit', { name: 'SubEdit' });
     }
 
     render() {
         return (
             <View style={this.props.style}>
-                <Field
-                    name="six"
-                    component={ EditForm.renderSix }
+                <SectionResultsDisplay
+                    button
+                    onButtonPress={this._goToSubEdit}
+                    value={this.props.initialValues.six}
+                    title="6 in."
                 />
-                <Field
-                    name="twelve"
-                    component={ EditForm.renderTwelve }
+                <SectionResultsDisplay
+                    button
+                    onButtonPress={this._goToSubEdit}
+                    value={this.props.initialValues.twelve}
+                    title="12 in."
                 />
-                <Field
-                    name="eighteen"
-                    component={ EditForm.renderEighteen }
+                <SectionResultsDisplay
+                    button
+                    onButtonPress={this._goToSubEdit}
+                    value={this.props.initialValues.eighteen}
+                    title="18 in."
                 />
-                <Button
-                    title="Submit"
-                    containerStyle={styles.submitContainer}
-                    onPress={this.props.handleSubmit}
-                />
+                {/*<Field*/}
+                    {/*name="six"*/}
+                    {/*component={ EditForm.renderSix }*/}
+                {/*/>*/}
+                {/*<Field*/}
+                    {/*name="twelve"*/}
+                    {/*component={ EditForm.renderTwelve }*/}
+                {/*/>*/}
+                {/*<Field*/}
+                    {/*name="eighteen"*/}
+                    {/*component={ EditForm.renderEighteen }*/}
+                {/*/>*/}
+                <Text style={{ color: '#007fc6', alignSelf: 'center' }}>
+                    Click number to edit
+                </Text>
+                {/*<Button*/}
+                    {/*title="Submit"*/}
+                    {/*containerStyle={styles.submitContainer}*/}
+                    {/*onPress={this.props.handleSubmit}*/}
+                {/*/>*/}
             </View>
         );
     }

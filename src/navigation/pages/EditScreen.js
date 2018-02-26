@@ -56,7 +56,7 @@ class EditScreen extends Component {
     }
 
     render() {
-        const { entry, details } = this.props;
+        const { entry, details, navigation } = this.props;
         return (
             <View style={styles.container}>
                 <DetailCard
@@ -67,6 +67,7 @@ class EditScreen extends Component {
                 />
                 <EditForm
                     details={details}
+                    navigation={navigation}
                     style={{ flex: 5 }}
                     onSubmit={this._handleSubmit}
                 />
@@ -88,7 +89,8 @@ export default compose(
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        padding: 15,
+        paddingTop: 20,
         backgroundColor: '#00171f'
     },
     submitContainer: {

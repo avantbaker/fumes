@@ -3,6 +3,7 @@ import {
     View,
     Text,
     TextInput,
+    TouchableOpacity
 } from 'react-native';
 import { FormInput } from 'react-native-elements';
 
@@ -17,6 +18,8 @@ export default class SectionResultsDisplay extends Component {
             editable = false,
             input,
             style,
+            onButtonPress,
+            button = false,
             ...inputProps
         } = this.props;
         const {
@@ -31,16 +34,27 @@ export default class SectionResultsDisplay extends Component {
                 <View style={sideWrapper}>
                     <Text style={sideText}>{ title }</Text>
                 </View>
-                <TextInput
-                    {...inputProps}
-                    textAlign="center"
-                    editable={editable}
-                    onChangeText={input && input.onChange}
-                    onBlur={input && input.onBlur}
-                    onFocus={input && input.onFocus}
-                    value={input ? input.value : value }
-                    style={[averageWrapper, averageText, style && style]}
-                />
+                {
+                    button ?
+                    <TouchableOpacity
+                        onPress={onButtonPress}
+                        style={[averageWrapper, style && style]}
+                    >
+                        <Text style={[averageText, style && style]}>
+                            { input ? input.value : value }
+                        </Text>
+                    </TouchableOpacity> :
+                    <TextInput
+                        {...inputProps}
+                        textAlign="center"
+                        editable={editable}
+                        onChangeText={input && input.onChange}
+                        onBlur={input && input.onBlur}
+                        onFocus={input && input.onFocus}
+                        value={input ? input.value : value }
+                        style={[averageWrapper, averageText, style && style]}
+                    />
+                }
                 { children }
             </View>
         );
@@ -49,12 +63,12 @@ export default class SectionResultsDisplay extends Component {
 
 export const sectionResultsDisplayStyles = {
     container: {
-        height: 85,
-        marginBottom: 10,
+        height: 60,
+        marginBottom: 12,
         flexDirection: 'row'
     },
     sideWrapper: {
-        flex: 2,
+        flex: 1,
         backgroundColor: 'rgba(0, 127, 198, 0.25)',
         borderLeftColor: '#02dccf',
         borderLeftWidth: 3,
@@ -63,18 +77,21 @@ export const sectionResultsDisplayStyles = {
     },
     sideText: {
         color: '#fff',
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'PTSans-Narrow'
     },
     averageText: {
         fontSize: 24,
-        color: '#02dccf'
+        color: '#02dccf',
+        fontFamily: 'Impact'
     },
     editText: {
         fontSize: 18,
-        color: '#fff'
+        color: '#fff',
+        fontFamily: 'PTSans-Narrow'
     },
     averageWrapper: {
-        flex: 3,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         borderLeftColor: 'rgba(2,220,207,0.25)',
