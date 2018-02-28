@@ -79,10 +79,10 @@ class SubEdit extends Component {
 SubEdit = reduxForm({ form: 'subEdit' })(SubEdit);
 
 export default connect(
-    (state) => ({
-        initialValues: {
-            sectionValue: '74.8',
-        }
+    (state, { navigation: { state: { params }}}) => ({
+       initialValues: {
+           sectionValue: params.value,
+       }
     })
 )(SubEdit);
 
@@ -94,7 +94,7 @@ const styles = {
     numberInputText: {
         fontSize: 110,
         fontFamily: 'Impact',
-        color: '#02dccf',
+        color: '#fff',
     },
     numberInputTextContainer: {
         borderBottomWidth: 0
@@ -131,7 +131,7 @@ const styles = {
         alignItems: 'center'
     },
     submitText: {
-        color: '#02dccf',
+        color: '#fff',
         fontFamily: 'Impact',
         fontSize: 30
     }

@@ -45,7 +45,7 @@ const styles = {
     },
     number: {
         fontSize: 32,
-        color: '#fff',
+        color: '#02dccf',
         fontFamily: 'Impact',
         fontWeight: 'bold'
     },

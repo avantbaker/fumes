@@ -21,30 +21,35 @@ class EditForm extends Component {
         this._goToSubEdit = this._goToSubEdit.bind(this);
     }
 
-    _goToSubEdit() {
+    _goToSubEdit(name, value) {
         const { navigate } = this.props.navigation;
-        navigate('SubEdit', { name: 'SubEdit' });
+        return () => {
+            navigate('SubEdit', { name, value, });
+        }
     }
 
     render() {
+
+        const { six, twelve, eighteen } = this.props.initialValues;
+
         return (
             <View style={this.props.style}>
                 <SectionResultsDisplay
                     button
-                    onButtonPress={this._goToSubEdit}
-                    value={this.props.initialValues.six}
+                    onButtonPress={this._goToSubEdit('6 in.', six)}
+                    value={six}
                     title="6 in."
                 />
                 <SectionResultsDisplay
                     button
-                    onButtonPress={this._goToSubEdit}
-                    value={this.props.initialValues.twelve}
+                    onButtonPress={this._goToSubEdit('12 in.', twelve)}
+                    value={twelve}
                     title="12 in."
                 />
                 <SectionResultsDisplay
                     button
-                    onButtonPress={this._goToSubEdit}
-                    value={this.props.initialValues.eighteen}
+                    onButtonPress={this._goToSubEdit('18 in.', eighteen)}
+                    value={eighteen}
                     title="18 in."
                 />
                 <Text style={styles.helperText}>
