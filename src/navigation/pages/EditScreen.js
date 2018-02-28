@@ -25,15 +25,17 @@ class EditScreen extends Component {
     }
 
     _handleSubmit(values) {
-        const { firebase, entry, navigation: { state: { params: { userId, entryId, name }}} } = this.props;
 
-        const newDetails = this.combine(values, { average: this.computeAverage(values) });
-        const updatedEntry = this.combine(entry, { [name.toLowerCase()]: newDetails });
-        const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
-
-        updatedEntry.average = this.computeAverage(updatedEntryAverages);
-
-        firebase.update(`entries/${userId}/${entryId}`, updatedEntry);
+        console.log(values);
+        // const { firebase, entry, navigation: { state: { params: { userId, entryId, name }}} } = this.props;
+        //
+        // const newDetails = this.combine(values, { average: this.computeAverage(values) });
+        // const updatedEntry = this.combine(entry, { [name.toLowerCase()]: newDetails });
+        // const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
+        //
+        // updatedEntry.average = this.computeAverage(updatedEntryAverages);
+        //
+        // firebase.update(`entries/${userId}/${entryId}`, updatedEntry);
     }
 
     combine(base, update) {

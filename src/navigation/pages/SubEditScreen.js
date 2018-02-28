@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
+    TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, change } from 'redux-form';
 
 import NumberRow from "../../components/forms/NumberRow.component";
 
@@ -22,6 +23,7 @@ class SubEdit extends Component {
         };
 
         this.updateInput = this.updateInput.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     updateInput(val) {
@@ -42,6 +44,11 @@ class SubEdit extends Component {
             curText += val;
         }
         this.setState({ text: curText });
+    }
+
+    submit() {
+        this.props.onChange('edit', this.props.field, this.state.text);
+        this.props.navigation.goBack();
     }
 
     render() {
@@ -68,9 +75,12 @@ class SubEdit extends Component {
                         onPress={this.updateInput}
                     />
                 </View>
-                <View style={styles.submitContainer}>
+                <TouchableOpacity
+                    style={styles.submitContainer}
+                    onPress={this.submit}
+                >
                     <Text style={styles.submitText}>Submit</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -79,10 +89,14 @@ class SubEdit extends Component {
 SubEdit = reduxForm({ form: 'subEdit' })(SubEdit);
 
 export default connect(
-    (state, { navigation: { state: { params }}}) => ({
-       initialValues: {
-           sectionValue: params.value,
-       }
+    ({ form: { edit }}, { navigation: { state: { params }}}) => ({
+        field: params.field,
+        initialValues: {
+           sectionValue: edit && edit.values[params.field],
+        }
+    }),
+    (dispatch) => ({
+        onChange: (form, field, value) => dispatch(change(form, field, value))
     })
 )(SubEdit);
 

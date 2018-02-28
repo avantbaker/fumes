@@ -5,7 +5,7 @@ import {
     Text
 } from 'react-native';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 
 import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
 
@@ -19,38 +19,69 @@ class EditForm extends Component {
         super(props);
 
         this._goToSubEdit = this._goToSubEdit.bind(this);
+        this.renderEighteen = this.renderEighteen.bind(this);
+        this.renderSix = this.renderSix.bind(this);
+        this.renderTwelve = this.renderTwelve.bind(this);
+
     }
 
-    _goToSubEdit(name, value) {
-        const { navigate } = this.props.navigation;
+    _goToSubEdit(name, field, value) {
+        const { navigate, onSubmit } = this.props.navigation;
         return () => {
-            navigate('SubEdit', { name, value, });
+            navigate('SubEdit', { name, field, value, onSubmit });
         }
     }
 
+    renderSix(props) {
+        const { six } = this.props.initialValues;
+        return(
+            <SectionResultsDisplay
+                {...props}
+                button
+                onButtonPress={this._goToSubEdit('6 in.', 'six', six)}
+                title="6 in."
+            />
+        )
+    }
+
+    renderTwelve(props) {
+        const { twelve } = this.props.initialValues;
+        return(
+            <SectionResultsDisplay
+                {...props}
+                button
+                onButtonPress={this._goToSubEdit('12 in.', 'twelve', twelve)}
+                title="12 in."
+            />
+        );
+    }
+
+    renderEighteen(props) {
+        const { eighteen } = this.props.initialValues;
+        return(
+            <SectionResultsDisplay
+                {...props}
+                button
+                onButtonPress={this._goToSubEdit('18 in.', 'eighteen', eighteen)}
+                title="18 in."
+            />
+        );
+    }
+
     render() {
-
-        const { six, twelve, eighteen } = this.props.initialValues;
-
         return (
             <View style={this.props.style}>
-                <SectionResultsDisplay
-                    button
-                    onButtonPress={this._goToSubEdit('6 in.', six)}
-                    value={six}
-                    title="6 in."
+                <Field
+                    name="six"
+                    component={ this.renderSix }
                 />
-                <SectionResultsDisplay
-                    button
-                    onButtonPress={this._goToSubEdit('12 in.', twelve)}
-                    value={twelve}
-                    title="12 in."
+                <Field
+                    name="twelve"
+                    component={ this.renderTwelve }
                 />
-                <SectionResultsDisplay
-                    button
-                    onButtonPress={this._goToSubEdit('18 in.', eighteen)}
-                    value={eighteen}
-                    title="18 in."
+                <Field
+                    name="eighteen"
+                    component={ this.renderEighteen }
                 />
                 <Text style={styles.helperText}>
                     Click number to edit
@@ -64,13 +95,13 @@ class EditForm extends Component {
 EditForm = reduxForm({ form: 'edit' })(EditForm);
 
 export default connect(
-    (state, { details: { six, twelve, eighteen } }) => ({
+    ({ form: { edit }}, { details: { six, twelve, eighteen } }) => ({
         initialValues: {
-            six: six.toString(),
-            twelve: twelve.toString(),
-            eighteen: eighteen.toString()
+            six: edit ? edit.values.six : six.toString(),
+            twelve: edit ? edit.values.twelve : twelve.toString(),
+            eighteen: edit ? edit.values.eighteen : eighteen.toString()
         }
-    })
+    }),
 )(EditForm);
 
 const styles = StyleSheet.create({

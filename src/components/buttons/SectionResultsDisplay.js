@@ -37,6 +37,7 @@ export default class SectionResultsDisplay extends Component {
                 {
                     button ?
                     <TouchableOpacity
+                        {...inputProps}
                         onPress={onButtonPress}
                         style={[averageWrapper, style && style]}
                     >
