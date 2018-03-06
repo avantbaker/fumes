@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text
+    Text,
+    TouchableOpacity
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { firebaseConnect } from 'react-redux-firebase'
@@ -19,13 +20,15 @@ class HomeScreen extends Component {
         return {
             title: 'History',
             headerRight: (
-                <Icon
-                    name="plus"
-                    type="font-awesome"
-                    color="#ffffff"
-                    containerStyle={{ marginRight: 15 }}
-                    size={18}
-                />
+                <TouchableOpacity onPress={() => navigate('Add')}>
+                    <Icon
+                        name="plus"
+                        type="font-awesome"
+                        color="#ffffff"
+                        containerStyle={{ marginRight: 15 }}
+                        size={18}
+                    />
+                </TouchableOpacity>
             ),
         }
     };

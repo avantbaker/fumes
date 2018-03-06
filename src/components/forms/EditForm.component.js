@@ -5,6 +5,8 @@ import {
     Text
 } from 'react-native';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
 import { reduxForm, Field } from 'redux-form';
 
 import SectionResultsDisplay from '../../components/buttons/SectionResultsDisplay';
@@ -94,14 +96,21 @@ class EditForm extends Component {
 
 EditForm = reduxForm({ form: 'edit' })(EditForm);
 
-export default connect(
-    ({ form: { edit }}, { details: { six, twelve, eighteen } }) => ({
-        initialValues: {
-            six: edit ? edit.values.six : six.toString(),
-            twelve: edit ? edit.values.twelve : twelve.toString(),
-            eighteen: edit ? edit.values.eighteen : eighteen.toString()
+export default compose(
+        firebaseConnect((state, store) => {
+            const { user, entry } = store.getState();
+            return ([ `entries/${user.uid}/${entry.id}` ]);
         }
-    }),
+    ),
+    connect(
+        ({ form: { edit }, user, entry}, { details: { six, twelve, eighteen } }) => ({
+            initialValues: {
+                six: entry[entry.currentSection].six,
+                twelve: entry[entry.currentSection].twelve,
+                eighteen: entry[entry.currentSection].eighteen
+            },
+        }),
+    )
 )(EditForm);
 
 const styles = StyleSheet.create({

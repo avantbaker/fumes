@@ -6,10 +6,16 @@ import { reducer as formReducer } from 'redux-form';
 import { firebaseReducer } from 'react-redux-firebase';
 import { createStoreWithFirebase } from "../firebase";
 import ReduxThunk from 'redux-thunk';
+
+import { currentUserReducer } from "./CurrentUserReducer";
+import {currentEntryReducer} from "./CurrentEntryReducer";
+
 const rootReducer = combineReducers({
     nav: navigationReducer,
     form: formReducer,
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    user: currentUserReducer,
+    entry: currentEntryReducer
 });
 
 const middleware = createReactNavigationReduxMiddleware(

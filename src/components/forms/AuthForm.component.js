@@ -8,12 +8,13 @@ import SignUpForm from './SignUpForm.component';
 import LoginForm from './LoginForm.component';
 
 import Tabs from './Tabs.component';
+import {updateUser} from "../../actions/CurrentUserActions";
 
 class AuthForm extends Component {
 
     constructor(props) {
         super(props);
-        const { firebase, navigation } = props;
+        const { firebase, navigation, updateCurrentUser } = props;
         this.state = {
             selectedIndex: 0,
             // requirements:
@@ -26,6 +27,7 @@ class AuthForm extends Component {
                     onSubmit: (values) => {
                         firebase.login(values)
                             .then(({ user }) => {
+                                updateCurrentUser(user);
                                 navigation.navigate('Home', { user })
                             })
                             .catch((error) => { console.log(error) })
@@ -96,7 +98,14 @@ class AuthForm extends Component {
 
 export default compose(
    firebaseConnect(),
-   connect(({ firebase: { auth } }) => ({ auth }))
+   connect(
+        // mapStateToProps
+        ({ firebase: { auth } }) => ({ auth }),
+        // mapDispatchToProps
+        (dispatch) => ({
+            updateCurrentUser: (user) => dispatch(updateUser(user))
+        })
+   )
 )(AuthForm);
 
 const styles = {

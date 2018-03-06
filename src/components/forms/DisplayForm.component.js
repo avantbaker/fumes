@@ -13,7 +13,7 @@ const DisplayForm = ({ entry, navigator, style }) => {
             <TouchableSectionResultsDisplay
                 title="Middle"
                 value={entry.middle.average}
-                onPress={navigator("Middle", entry.middle)}
+                onPress={navigator("Middle", entry.right)}
             />
             <TouchableSectionResultsDisplay
                 title="Right"

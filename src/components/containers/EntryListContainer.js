@@ -2,20 +2,27 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { ListItem, List } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-export default ({ items, listItemComponent, navigation }) => {
+import { updateEntry } from "../../actions/CurrentEntryActions";
+import { formatDate } from "../../utilities";
+
+const EntryListContainer = ({ items, listItemComponent, navigation, updateCurrentEntry }) => {
 
     // create a function that takes an object and returns a function that navigates to same page with the object as the params ( Details )
     const { cardContainerStyles, listItemContainerStyles } = styles;
 
-    const _goToDetails = (item) => () => navigation.navigate('Details', item);
+    const _goToDetails = (item) => (e) => {
+        updateCurrentEntry(item);
+        navigation.navigate('Details', item);
+    };
 
     return (
         <List containerStyle={cardContainerStyles}>
             {
                 Object.keys(items).map((key, i) => {
                     let item = items[key];
-                    item = Object.assign({}, item, { id: key });
+                    item = Object.assign({}, item, { id: key, date: formatDate(item.createdAt) });
                     return (
                         <ListItem
                             key={i}
@@ -30,6 +37,11 @@ export default ({ items, listItemComponent, navigation }) => {
         </List>
     );
 };
+
+export default connect(
+    null,
+    (dispatch) => ({ updateCurrentEntry: (entry) => dispatch(updateEntry(entry)) })
+)(EntryListContainer);
 
 const styles = StyleSheet.create({
     cardContainerStyles: {

@@ -7,6 +7,7 @@ import {
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
+import { updateSection } from "../../actions/CurrentEntryActions";
 
 import DetailCard from '../../components/cards/DetailCard';
 import DisplayForm from "../../components/forms/DisplayForm.component";
@@ -23,8 +24,9 @@ class DetailsScreen extends Component {
     }
 
     _goToEdit(title, data) {
-        const { navigation: { state, navigate }, entry } = this.props;
+        const { navigation: { state, navigate }, entry, updateCurrentSection } = this.props;
         return () => {
+            updateCurrentSection(title.toLowerCase());
             navigate('Edit', {
                 details: data,
                 userId: entry.createdBy,
@@ -53,9 +55,14 @@ export default compose(
     firebaseConnect(({ navigation: { state: { params: { id, createdBy }}}}) => ([
         `entries/${createdBy}/${id}`
     ])),
-    connect(({ firebase: { data }}, { navigation: { state: { params: { id, createdBy }}}}) => ({
-        entry: data.entries && data.entries[createdBy][id]
-    }))
+    connect(
+        ({ firebase: { data }}, { navigation: { state: { params: { id, createdBy }}}}) => ({
+            entry: data.entries && data.entries[createdBy][id]
+        }),
+        (dispatch) => ({
+            updateCurrentSection: (section) => dispatch(updateSection(section))
+        })
+    )
 )(DetailsScreen);
 
 const styles = StyleSheet.create({

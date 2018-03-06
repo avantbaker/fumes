@@ -7,6 +7,7 @@ import HomeScreen from './HomeScreen';
 import DetailsScreen from "./DetailsScreen";
 import EditScreen from "./EditScreen";
 import SubEditScreen from './SubEditScreen';
+import AddScreen from './AddScreen';
 
 const AuthStack = StackNavigator({
     Login: { screen: AuthScreen }
@@ -18,7 +19,8 @@ const MainStack = StackNavigator({
     Home: { screen: HomeScreen },
     Details: { screen: DetailsScreen },
     Edit: { screen: EditScreen },
-    SubEdit: { screen: SubEditScreen }
+    SubEdit: { screen: SubEditScreen },
+    Add: { screen: AddScreen }
 },{
     headerMode: 'screen',
     initialRoute: 'Home',

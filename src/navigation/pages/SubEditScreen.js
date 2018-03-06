@@ -4,10 +4,13 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, change } from 'redux-form';
+import { firebaseConnect } from 'react-redux-firebase';
 
 import NumberRow from "../../components/forms/NumberRow.component";
+import {updateEntry} from "../../actions/CurrentEntryActions";
 
 class SubEdit extends Component {
 
@@ -47,9 +50,54 @@ class SubEdit extends Component {
     }
 
     submit() {
-        this.props.onChange('edit', this.props.field, this.state.text);
-        this.props.navigation.goBack();
+
+        const { text } = this.state;
+        const {
+            entry,
+            firebase,
+            user,
+            navigation: { state: { params } },
+            updateCurrentEntry,
+            navigation,
+            onChange
+        } = this.props;
+
+        const currentSection = entry.currentSection;
+        const currentField = params.field;
+        const currentSubSection = this.combine(entry[entry.currentSection], { [currentField]: text });
+        const newDetails = this.combine(currentSubSection, { average: this.computeAverage(currentSubSection) });
+        const updatedEntry = this.combine(entry, { [currentSection]: newDetails });
+        const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
+
+        updatedEntry.average = this.computeAverage(updatedEntryAverages);
+
+        firebase.update(`entries/${user.uid}/${entry.id}`, updatedEntry).then(() => {
+            updateCurrentEntry(updatedEntry);
+        });
+
+        onChange('edit', currentField, text);
+        navigation.goBack();
     }
+
+    combine(base, update) {
+        return Object.assign({}, base, update);
+    }
+
+    computeAverage(averages) {
+
+        let value;
+
+        if(averages && typeof averages === 'object') {
+            value = (Object.values(averages).reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+        }
+
+        if(averages && Array.isArray(averages)) {
+            value = (averages.reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+        }
+
+        return value;
+    }
+
 
     render() {
         return (
@@ -88,16 +136,22 @@ class SubEdit extends Component {
 
 SubEdit = reduxForm({ form: 'subEdit' })(SubEdit);
 
-export default connect(
-    ({ form: { edit }}, { navigation: { state: { params }}}) => ({
-        field: params.field,
-        initialValues: {
-           sectionValue: edit && edit.values[params.field],
-        }
-    }),
-    (dispatch) => ({
-        onChange: (form, field, value) => dispatch(change(form, field, value))
-    })
+export default compose(
+    firebaseConnect(),
+    connect(
+        ({ form: { edit }, entry, user }, { navigation: { state: { params }}}) => ({
+            field: params.field,
+            initialValues: {
+                sectionValue: edit && edit.values[params.field],
+            },
+            entry,
+            user
+        }),
+        (dispatch) => ({
+            onChange: (form, field, value) => dispatch(change(form, field, value)),
+            updateCurrentEntry: (entry) => dispatch(updateEntry(entry))
+        })
+    )
 )(SubEdit);
 
 const styles = {
