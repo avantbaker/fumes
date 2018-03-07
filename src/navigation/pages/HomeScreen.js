@@ -15,7 +15,7 @@ import EntryListItem from '../../components/buttons/EntryListItem';
 
 class HomeScreen extends Component {
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ screenProps, navigation }) => {
         const { navigate } = navigation;
         return {
             title: 'History',
@@ -26,6 +26,17 @@ class HomeScreen extends Component {
                         type="font-awesome"
                         color="#ffffff"
                         containerStyle={{ marginRight: 15 }}
+                        size={18}
+                    />
+                </TouchableOpacity>
+            ),
+            headerLeft: (
+                <TouchableOpacity onPress={() => screenProps.rootNavigation.navigate('DrawerOpen')}>
+                    <Icon
+                        name="bars"
+                        type="font-awesome"
+                        color="#ffffff"
+                        containerStyle={{ marginLeft: 15 }}
                         size={18}
                     />
                 </TouchableOpacity>
@@ -52,10 +63,10 @@ class HomeScreen extends Component {
 }
 
 export default compose(
-    firebaseConnect(({ navigation: { state: { params: { user }}}}) => ([
-        `entries/${user.uid}`
+    firebaseConnect((props, store) => ([
+        `entries/${store.getState().user.uid}`
     ])),
-    connect(({ firebase: { data }}, { navigation: { state: { params: { user }}}}) => ({
+    connect(({ firebase: { data }, user }) => ({
         entries: data.entries && data.entries[user.uid]
     }))
 )(HomeScreen);
