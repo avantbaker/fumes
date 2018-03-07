@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import { NavigationActions } from 'react-navigation';
 
 import SignUpForm from './SignUpForm.component';
 import LoginForm from './LoginForm.component';
@@ -26,34 +25,30 @@ class AuthForm extends Component {
                     name: 'Login',
                     component: LoginForm,
                     onSubmit: (values) => {
-                        firebase.login(values)
+                        firebase
+                            .login(values)
                             .then(({ user }) => {
-
-                                const updateUser = new Promise((resolve) => {
-                                    resolve(updateCurrentUser(user));
-                                });
-                                //
-                                updateUser.then(() => {
-
-                                    navigation.navigate('Home', { user });
-                                });
-                                // // navigation.dispatch(NavigationActions.reset({
-                                // //     index: 0,
-                                // //     routeName: 'Main',
-                                // //     key: null
-                                // // }))
-                                // navigation.navigate('Main', { user })
+                               updateCurrentUser(user);
+                               navigation.navigate('Main');
                             })
-                            .catch((error) => { console.log(error) })
+                            .catch((error) => {
+                                console.log(error)
+                            });
                     }
                 },
                 {
                     name: 'Sign Up',
                     component: SignUpForm,
                     onSubmit: (values) => {
-                        firebase.createUser(values)
-                            .then((data) => { console.log(data) })
-                            .catch((error) => { console.log(error) })
+                        firebase
+                            .createUser(values)
+                            .then(({ user }) => {
+                                updateCurrentUser(user);
+                                navigation.navigate('Main');
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            });
                     }
                 }
             ]
