@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import {
     StackNavigator,
+    DrawerNavigator
 } from 'react-navigation';
+
 import AuthScreen from './AuthScreen';
 import HomeScreen from './HomeScreen';
 import DetailsScreen from "./DetailsScreen";
 import EditScreen from "./EditScreen";
 import SubEditScreen from './SubEditScreen';
 import AddScreen from './AddScreen';
+import LogoutScreen from './LogoutScreen';
 
 const AuthStack = StackNavigator({
     Login: { screen: AuthScreen }
@@ -39,15 +42,24 @@ const MainStack = StackNavigator({
     }
 });
 
-const Navigator = StackNavigator(
-    {
-        Auth: { screen: AuthStack },
-        Home: { screen: MainStack }
-    },
-    {
-        initialRouteName: 'Auth',
-        headerMode: 'none',
+class MainStackNavigator extends Component {
+    render() {
+        return (
+            <MainStack
+                screenProps={{ rootNavigation: this.props.navigation }}
+            />
+        )
     }
-);
+}
+
+const Navigator = DrawerNavigator({
+    Auth: { screen: AuthStack },
+    Main: { screen: MainStackNavigator }
+}, {
+    initialRouteName: 'Auth',
+    headerMode: 'none',
+    contentComponent: LogoutScreen,
+    stateName: 'MainAppDrawer'
+});
 
 export default Navigator;
