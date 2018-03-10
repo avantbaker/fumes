@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { FormLabel, Button } from 'react-native-elements';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import Input from './Input.component';
 
 class LoginForm extends Component {
     render() {
+        const { pristine } = this.props;
         return(
             <View>
                 <View>
@@ -17,6 +18,7 @@ class LoginForm extends Component {
                         placeholder="Email"
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, styles.emailContainer ]}
+                        onChange={() => this.props.resetError('login')}
                     />
                 </View>
                 <View>
@@ -27,6 +29,7 @@ class LoginForm extends Component {
                         placeholder="Password"
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, styles.passwordContainer ]}
+                        onChange={() => this.props.resetError('login')}
                     />
                 </View>
                 <View style={styles.submitContainer}>
@@ -35,7 +38,18 @@ class LoginForm extends Component {
                         onPress={this.props.handleSubmit}
                         textStyle={styles.submitText}
                         buttonStyle={styles.submitButton}
+                        disabledStyle={{ backgroundColor: 'rgba(0, 127, 198, 0.04)' }}
+                        disabledTextStyle={{ color: '#5e6977' }}
                     />
+                    <View style={{ alignItems: 'center' }}>
+                        {
+                            this.props.parentState.error &&
+                            this.props.parentState.error.screen === 'login' &&
+                            <Text style={{ color: '#FA4616', fontFamily: 'PTSans-Narrow', paddingTop: 8 }}>
+                                { this.props.parentState.errorStates[this.props.parentState.error.code] }
+                            </Text>
+                        }
+                    </View>
                 </View>
             </View>
         );
@@ -50,14 +64,14 @@ const styles = {
         borderBottomWidth: 3,
         borderBottomColor: '#02dccf',
         backgroundColor: 'rgba(0, 127, 198, 0.25)',
-        height: 50,
+        height: 45,
         marginTop: 5,
         marginBottom: 15
     },
     fieldInputStyles: {
         color: '#fff',
         paddingLeft: 10,
-        paddingTop: 10,
+        paddingTop: 6,
         fontSize: 15,
     },
     labelStyle: {
