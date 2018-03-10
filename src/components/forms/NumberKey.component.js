@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import {
     Text,
     TouchableOpacity,
+    View
 } from 'react-native';
 
 class NumberKey extends Component {
     render() {
+
         const {
             onPress,
-            value
+            value: itemValue
         } = this.props;
+
+        let Component;
+        let value;
 
         function propagateValue(value) {
             return () => {
@@ -24,12 +29,20 @@ class NumberKey extends Component {
             }
         }
 
+        if( typeof itemValue !== 'string' ) {
+            Component =  itemValue;
+            value = 'X';
+        } else {
+            Component = <Text style={styles.number}>{ itemValue }</Text>;
+            value = itemValue;
+        }
+
         return(
             <TouchableOpacity
                 onPress={propagateValue(value)}
                 style={styles.numberKey}
             >
-                <Text style={styles.number}>{ value }</Text>
+                { Component }
             </TouchableOpacity>
         );
     }

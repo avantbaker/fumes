@@ -67,7 +67,7 @@ class AddScreen extends Component {
         const entry = createBaseEntry({ location, name, date });
 
         Firebase.pushWithMeta(`/entries/${user.uid}`, entry).then((ref) => {
-            console.log(ref);
+            navigation.goBack();
         });
 
     }

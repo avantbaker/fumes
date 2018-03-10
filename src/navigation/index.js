@@ -23,6 +23,11 @@ class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        shadowOpacity: 0,
+        shadowOffset: {
+            height: 0,
+        },
+        shadowRadius: 0,
     }
 });
 

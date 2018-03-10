@@ -47,6 +47,7 @@ class SignUpForm extends Component {
                         name="password"
                         component={ Input }
                         placeholder="Password"
+                        secureTextEntry
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={styles.fieldContainerStyles}
                         onChange={() => this.props.resetError('signup')}
@@ -57,6 +58,7 @@ class SignUpForm extends Component {
                         name="password_confirm"
                         component={ Input }
                         placeholder="Confirm password"
+                        secureTextEntry
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, { marginBottom: 10 }]}
                         onChange={() => this.props.resetError('signup')}

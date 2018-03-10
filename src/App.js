@@ -7,7 +7,7 @@ import store from './reducers/root';
 export default class Root extends Component {
     render() {
         return (
-            <SafeAreaView style={{ flex: 1 }} >
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#00171f'}} >
                 <Provider store={store}>
                     <AppWithNavigationState />
                 </Provider>
