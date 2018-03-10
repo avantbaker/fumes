@@ -57,6 +57,12 @@ class HomeScreen extends Component {
                         {...this.props}
                     />
                 }
+                {
+                    !entries &&
+                    <View style={{flex: 1, alignItems: 'center',}}>
+                        <Text style={{color: 'white', fontFamily: 'PTSans-Narrow'}}>Click the plus to add a New Entry</Text>
+                    </View>
+                }
             </View>
         );
     }

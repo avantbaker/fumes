@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, Text, TouchableOpacity, View } from 'react-native';
 
 import { ListItem, List } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -31,6 +31,10 @@ const EntryListContainer = ({
 
     const keyExtractor = item => item.id;
 
+    finalItems = Object.keys(items)
+        .map((key, i) => Object.assign({}, items[key], { id: key, date: formatDate(items[key].createdAt) }))
+        .reverse();
+
     const renderListItem = (current) => {
 
         const deleteItem = (item) => {
@@ -40,6 +44,9 @@ const EntryListContainer = ({
                     .then(() => console.log('done'));
             }
         };
+
+        const itemCount = finalItems.length - 1;
+        const currentItemIndex = current.index;
 
         const Component = (
             <TouchableOpacity
@@ -57,19 +64,27 @@ const EntryListContainer = ({
         }];
 
         return (
-            <Swipeout
-                right={swipeButtons}
-                autoClose={true}
-                style={styles.swipeContainer}
-            >
-                <ListItem
-                    key={current.item.id}
-                    attributes={current.item}
-                    component={listItemComponent}
-                    containerStyle={listItemContainerStyles}
-                    onPress={_goToDetails(current.item)}
-                />
-            </Swipeout>
+            <View>
+                <Swipeout
+                    right={swipeButtons}
+                    autoClose={true}
+                    style={styles.swipeContainer}
+                >
+                    <ListItem
+                        key={current.item.id}
+                        attributes={current.item}
+                        component={listItemComponent}
+                        containerStyle={listItemContainerStyles}
+                        onPress={_goToDetails(current.item)}
+                    />
+                </Swipeout>
+                <View style={{height: 20, alignItems: 'center',}}>
+                    {
+                        itemCount === currentItemIndex &&
+                        <Text style={{color: 'white', fontFamily: 'PTSans-Narrow'}}>swipe left to delete</Text>
+                    }
+                </View>
+            </View>
         );
     };
 
@@ -78,13 +93,15 @@ const EntryListContainer = ({
         .reverse();
 
     return (
-        <FlatList
-            data={finalItems}
-            contentContainerStyle={ cardContainerStyles }
-            keyExtractor={keyExtractor}
-            renderItem={renderListItem}
-            showsVerticalScrollIndicator={false}
-        />
+        <View style={{ flex: 1 }}>
+            <FlatList
+                data={finalItems}
+                contentContainerStyle={ cardContainerStyles }
+                keyExtractor={keyExtractor}
+                renderItem={renderListItem}
+                showsVerticalScrollIndicator={false}
+            />
+        </View>
     );
 };
 

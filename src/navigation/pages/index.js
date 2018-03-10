@@ -15,7 +15,22 @@ import LogoutScreen from './LogoutScreen';
 const AuthStack = StackNavigator({
     Login: { screen: AuthScreen }
 },{
-    headerMode: 'none'
+    cardStyle: { shadowColor: 'transparent' },
+    headerMode: 'none',
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: '#00171f',
+            borderBottomColor: '#02dccf',
+            borderBottomWidth: 3,
+            height: 60,
+        },
+        headerTitleStyle: {
+            fontFamily: 'PTSans-Narrow'
+        },
+        headerTintColor: '#fff',
+        headerBackTitle: null,
+
+    }
 });
 
 const MainStack = StackNavigator({
@@ -32,14 +47,16 @@ const MainStack = StackNavigator({
             backgroundColor: '#00171f',
             borderBottomColor: '#02dccf',
             borderBottomWidth: 3,
-            height: 60
+            height: 40,
+            paddingBottom: 18
         },
         headerTitleStyle: {
             fontFamily: 'PTSans-Narrow'
         },
         headerTintColor: '#fff',
-        headerBackTitle: null
-    }
+        headerBackTitle: null,
+    },
+    cardStyle: { shadowColor: 'transparent' }
 });
 
 class MainStackNavigator extends Component {

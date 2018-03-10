@@ -10,7 +10,6 @@ import { FormInput } from 'react-native-elements';
 export default class SectionResultsDisplay extends Component {
 
     render() {
-
         const {
             title,
             value,
@@ -29,6 +28,8 @@ export default class SectionResultsDisplay extends Component {
             averageWrapper,
             averageText
         } = sectionResultsDisplayStyles;
+
+
         return (
             <View style={container}>
                 <View style={sideWrapper}>

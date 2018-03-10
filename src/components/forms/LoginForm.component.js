@@ -101,7 +101,7 @@ const Login = reduxForm({ form: 'login' })(LoginForm);
 export default connect(
     (state) => ({
         initialValues: {
-            email: 'b.avant89@gmail.com',
+            email: 'test@gmail.com',
             password: 'Chitown1',
         }
     })

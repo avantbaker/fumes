@@ -9,13 +9,15 @@ import { connect } from 'react-redux';
 import { reduxForm, change } from 'redux-form';
 import { firebaseConnect } from 'react-redux-firebase';
 
+import { Icon } from 'react-native-elements';
+
 import NumberRow from "../../components/forms/NumberRow.component";
 import {updateEntry} from "../../actions/CurrentEntryActions";
 
 class SubEdit extends Component {
 
     static navigationOptions = ({ navigation }) => ({
-        title: `${navigation.state.params.name }`,
+        title: `${navigation.state.params.name }`
     });
 
     constructor(props) {
@@ -46,12 +48,22 @@ class SubEdit extends Component {
         } else {
             curText += val;
         }
-        this.setState({ text: curText });
+
+        if( curText.length < 6 || curText.length === 6) {
+            this.setState({ text: curText });
+        }
+
     }
 
     submit() {
 
         const { text } = this.state;
+
+        if ( isNaN(parseInt(text)) ) {
+            console.log('denied')
+            return;
+        }
+
         const {
             entry,
             firebase,
@@ -119,7 +131,14 @@ class SubEdit extends Component {
                         onPress={this.updateInput}
                     />
                     <NumberRow
-                        values={['.', '0', 'X']}
+                        values={['.', '0', <Icon
+                                                containerStyle={{ marginTop: 2 }}
+                                                name="angle-double-left"
+                                                type="font-awesome"
+                                                color="white"
+                                                size={32}
+                                            />
+                        ]}
                         onPress={this.updateInput}
                     />
                 </View>
