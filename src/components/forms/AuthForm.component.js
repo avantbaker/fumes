@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
@@ -10,11 +10,23 @@ import LoginForm from './LoginForm.component';
 import Tabs from './Tabs.component';
 import {updateUser} from "../../actions/CurrentUserActions";
 
+
+// auth/user-not-found
+// auth/wrong-password
+// auth/invalid-email
+
 class AuthForm extends Component {
 
     constructor(props) {
         super(props);
         const { firebase, navigation, updateCurrentUser } = props;
+
+        this.errorStates = {
+            'auth/user-not-found': 'User doesn\'t seem to exist',
+            'auth/wrong-password': 'Password is incorrect',
+            'auth/invalid-email': 'Email is not valid'
+        };
+
         this.state = {
             selectedIndex: 0,
             // requirements:
@@ -32,7 +44,7 @@ class AuthForm extends Component {
                                navigation.navigate('Main');
                             })
                             .catch((error) => {
-                                console.log(error)
+                                this.setState({ error: { code: error.code, screen: 'login' }})
                             });
                     }
                 },
@@ -47,7 +59,7 @@ class AuthForm extends Component {
                                 navigation.navigate('Main');
                             })
                             .catch((error) => {
-                                console.log(error)
+                                this.setState({ error: { code: error.code, screen: 'signup' }});
                             });
                     }
                 }
@@ -57,19 +69,35 @@ class AuthForm extends Component {
         this.updateIndex = this.updateIndex.bind(this);
     }
 
+    resetError(screen) {
+        if ( this.state.error ) {
+            this.setState({
+                error: {
+                    code: '',
+                    screen
+                }
+            });
+        }
+    }
+
     updateIndex(selectedIndex) {
         this.setState({ selectedIndex });
     }
 
     renderForm(selectedIndex) {
+
         const { buttons } = this.state;
         const Component = buttons[selectedIndex].component;
+
         return (
             <Component
                 {...this.props}
                 onSubmit={buttons[selectedIndex].onSubmit}
+                parentState={{ ...this.state, errorStates: this.errorStates }}
+                resetError={this.resetError.bind(this)}
             />
         );
+
     }
 
     render() {
