@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { SafeAreaView } from 'react-navigation';
 import AppWithNavigationState from './navigation/index';
 import store from './reducers/root';
 
 export default class Root extends Component {
     render() {
         return (
-            <Provider store={store}>
-                <AppWithNavigationState />
-            </Provider>
+            <SafeAreaView style={{ flex: 1 }} >
+                <Provider store={store}>
+                    <AppWithNavigationState />
+                </Provider>
+            </SafeAreaView>
         );
     }
 }

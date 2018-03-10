@@ -4,18 +4,20 @@ import {
     TextInput,
     Platform,
     StyleSheet,
-    Dimensions
+    Dimensions,
+    Text
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
 export default (props) => {
-    const { input, inputStyle, containerStyle, ...inputProps } = props;
+    const { input, meta, inputStyle, containerStyle, ...inputProps } = props;
     return (
         <View
             style={[
                 inputStyles.container,
                 containerStyle && containerStyle,
+                meta.touched && meta.error && inputStyles.error
             ]}
         >
             <TextInput
@@ -27,10 +29,11 @@ export default (props) => {
                 style={[
                     inputStyles.input,
                     { fontSize: 14 },
-                    inputStyle && inputStyle,
+                    inputStyle && inputStyle
                 ]}
                 placeholderTextColor={'#fff'}
             />
+            <Text style={{ color: '#FA4616', top: 10, fontFamily: 'PTSans-Narrow' }}>{ meta.touched && meta.error }</Text>
         </View>
     );
 }
@@ -61,4 +64,7 @@ const inputStyles = StyleSheet.create({
         }),
         color: '#fff',
     },
+    error: {
+        borderBottomColor: 'red'
+    }
 });
