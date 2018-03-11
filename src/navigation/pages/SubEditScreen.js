@@ -32,7 +32,7 @@ class SubEdit extends Component {
     }
 
     updateInput(val) {
-        let curText = this.state.text;
+        let curText = this.state.text.toString();
         if (isNaN(val)) {
             switch(val) {
                 case 'back':
@@ -59,7 +59,7 @@ class SubEdit extends Component {
 
         const { text } = this.state;
 
-        if ( isNaN(parseInt(text)) ) {
+        if ( isNaN(parseFloat(text)) ) {
             console.log('denied')
             return;
         }
@@ -77,9 +77,17 @@ class SubEdit extends Component {
         const currentSection = entry.currentSection;
         const currentField = params.field;
         const currentSubSection = this.combine(entry[entry.currentSection], { [currentField]: text });
+
+        delete currentSubSection.average;
+
         const newDetails = this.combine(currentSubSection, { average: this.computeAverage(currentSubSection) });
         const updatedEntry = this.combine(entry, { [currentSection]: newDetails });
-        const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
+
+        const updatedEntryAverages = [
+            updatedEntry.left.average.toString(),
+            updatedEntry.middle.average.toString(),
+            updatedEntry.right.average.toString()
+        ];
 
         updatedEntry.average = this.computeAverage(updatedEntryAverages);
 
@@ -100,11 +108,13 @@ class SubEdit extends Component {
         let value;
 
         if(averages && typeof averages === 'object') {
-            value = (Object.values(averages).reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+            value = (Object.values(averages).reduce((p,c) => parseFloat(p) + parseFloat(c)) / 3).toFixed(1).toString();
+            console.log(Object.values(averages).reduce((p,c) => parseFloat(p) + parseFloat(c)));
         }
 
         if(averages && Array.isArray(averages)) {
-            value = (averages.reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
+            value = (averages.reduce((p,c) => parseFloat(p) + parseFloat(c)) / 3).toFixed(1).toString();
+            console.log(averages.reduce((p,c) => parseFloat(p) + parseFloat(c)));
         }
 
         return value;

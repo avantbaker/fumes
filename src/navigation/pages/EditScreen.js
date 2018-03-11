@@ -24,39 +24,6 @@ class EditScreen extends Component {
         this._handleSubmit = this._handleSubmit.bind(this);
     }
 
-    _handleSubmit(values) {
-
-        console.log(values);
-        // const { firebase, entry, navigation: { state: { params: { userId, entryId, name }}} } = this.props;
-        //
-        // const newDetails = this.combine(values, { average: this.computeAverage(values) });
-        // const updatedEntry = this.combine(entry, { [name.toLowerCase()]: newDetails });
-        // const updatedEntryAverages = [updatedEntry.left.average, updatedEntry.middle.average, updatedEntry.right.average];
-        //
-        // updatedEntry.average = this.computeAverage(updatedEntryAverages);
-        //
-        // firebase.update(`entries/${userId}/${entryId}`, updatedEntry);
-    }
-
-    combine(base, update) {
-        return Object.assign({}, base, update);
-    }
-
-    computeAverage(averages) {
-
-        let value;
-
-        if(averages && typeof averages === 'object') {
-            value = (Object.values(averages).reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
-        }
-
-        if(averages && Array.isArray(averages)) {
-            value = (averages.reduce((p,c) => parseInt(p) + parseInt(c)) / 3).toFixed(1).toString();
-        }
-
-        return value;
-    }
-
     render() {
         const { entry, details, navigation } = this.props;
         return (
@@ -71,7 +38,6 @@ class EditScreen extends Component {
                     details={details}
                     navigation={navigation}
                     style={{ flex: 5 }}
-                    onSubmit={this._handleSubmit}
                 />
             </View>
         );

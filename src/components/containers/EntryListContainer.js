@@ -78,12 +78,12 @@ const EntryListContainer = ({
                         onPress={_goToDetails(current.item)}
                     />
                 </Swipeout>
-                <View style={{height: 20, alignItems: 'center',}}>
-                    {
-                        itemCount === currentItemIndex &&
+                {
+                    itemCount === currentItemIndex &&
+                    <View style={{height: 20, alignItems: 'center',}}>
                         <Text style={{color: 'white', fontFamily: 'PTSans-Narrow'}}>swipe left to delete</Text>
-                    }
-                </View>
+                    </View>
+                }
             </View>
         );
     };
