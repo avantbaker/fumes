@@ -4,7 +4,8 @@ import SvgUri from 'react-native-svg-uri';
 import {
     StyleSheet,
     View,
-    Text
+    Text,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import AuthForm from '../../components/forms/AuthForm.component';
@@ -12,13 +13,13 @@ import AuthForm from '../../components/forms/AuthForm.component';
 export default class App extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.logo}>
                     <SvgUri width="100" height="100" source={require('../../assets/fumeslogo2.svg')} />
                 </View>
                 <Text style={styles.logoText}>FumeS</Text>
                 <AuthForm style={styles.authForm} {...this.props} />
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

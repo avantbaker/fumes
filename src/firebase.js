@@ -4,6 +4,7 @@ import { reactReduxFirebase } from 'react-redux-firebase';
 
 const rrfConfig = {
     userProfile: 'users',
+    enableRedirectHandling: false
 };
 
 const config = {

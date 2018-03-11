@@ -26,10 +26,10 @@ const middleware = createReactNavigationReduxMiddleware(
 export const addListener = createReduxBoundAddListener("root");
 
 // For Debugging
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-// export default createStoreWithFirebase( rootReducer, composeEnhancers(
-//     applyMiddleware(middleware, ReduxThunk)
-// ));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+export default createStoreWithFirebase( rootReducer, composeEnhancers(
+    applyMiddleware(middleware, ReduxThunk)
+));
 
 
-export default createStoreWithFirebase( rootReducer, applyMiddleware(middleware, ReduxThunk));
+// export default createStoreWithFirebase( rootReducer, applyMiddleware(middleware, ReduxThunk));

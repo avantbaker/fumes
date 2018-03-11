@@ -34,6 +34,7 @@ class LoginForm extends Component {
                 </View>
                 <View style={styles.submitContainer}>
                     <Button
+                        disabled={pristine}
                         title="Submit"
                         onPress={this.props.handleSubmit}
                         textStyle={styles.submitText}
@@ -98,11 +99,4 @@ const styles = {
 
 const Login = reduxForm({ form: 'login' })(LoginForm);
 
-export default connect(
-    (state) => ({
-        initialValues: {
-            email: 'test@gmail.com',
-            password: 'Chitown1',
-        }
-    })
-)(Login);
+export default Login;
