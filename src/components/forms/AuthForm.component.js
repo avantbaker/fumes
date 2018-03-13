@@ -27,7 +27,10 @@ class AuthForm extends Component {
             'auth/invalid-email': 'Email is not valid'
         };
 
+        this.updateIndex = this.updateIndex.bind(this);
+
         this.state = {
+            newUser: null,
             selectedIndex: 0,
             // requirements:
             // buttons need to be in correct order
@@ -54,9 +57,9 @@ class AuthForm extends Component {
                     onSubmit: (values) => {
                         firebase
                             .createUser(values)
-                            .then(({ user }) => {
-                                updateCurrentUser(user);
-                                navigation.navigate('Main');
+                            .then((response) => {
+                                this.setState({ newUser: response.email });
+                                this.updateIndex(0);
                             })
                             .catch((error) => {
                                 this.setState({ error: { code: error.code, screen: 'signup' }});
@@ -66,16 +69,17 @@ class AuthForm extends Component {
             ]
         };
 
-        this.updateIndex = this.updateIndex.bind(this);
+
     }
 
-    resetError(screen) {
-        if ( this.state.error ) {
+    resetForm(screen) {
+        if ( this.state.error || this.state.newUser ) {
             this.setState({
                 error: {
                     code: '',
                     screen
-                }
+                },
+                newUser: null
             });
         }
     }
@@ -94,7 +98,7 @@ class AuthForm extends Component {
                 {...this.props}
                 onSubmit={buttons[selectedIndex].onSubmit}
                 parentState={{ ...this.state, errorStates: this.errorStates }}
-                resetError={this.resetError.bind(this)}
+                resetForm={this.resetForm.bind(this)}
             />
         );
 

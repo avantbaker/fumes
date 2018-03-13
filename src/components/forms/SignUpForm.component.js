@@ -39,7 +39,7 @@ class SignUpForm extends Component {
                         placeholder="Email"
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, { marginTop: 20 }]}
-                        onChange={() => this.props.resetError('signup')}
+                        onChange={() => this.props.resetForm('signup')}
                     />
                 </View>
                 <View>
@@ -50,7 +50,7 @@ class SignUpForm extends Component {
                         secureTextEntry
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={styles.fieldContainerStyles}
-                        onChange={() => this.props.resetError('signup')}
+                        onChange={() => this.props.resetForm('signup')}
                     />
                 </View>
                 <View>
@@ -61,7 +61,7 @@ class SignUpForm extends Component {
                         secureTextEntry
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, { marginBottom: 10 }]}
-                        onChange={() => this.props.resetError('signup')}
+                        onChange={() => this.props.resetForm('signup')}
                     />
                 </View>
                 <View style={styles.submitContainer}>

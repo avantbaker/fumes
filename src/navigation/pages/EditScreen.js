@@ -20,8 +20,6 @@ class EditScreen extends Component {
 
     constructor(props) {
         super(props);
-
-        this._handleSubmit = this._handleSubmit.bind(this);
     }
 
     render() {

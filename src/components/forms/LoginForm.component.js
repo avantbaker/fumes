@@ -18,7 +18,7 @@ class LoginForm extends Component {
                         placeholder="Email"
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, styles.emailContainer ]}
-                        onChange={() => this.props.resetError('login')}
+                        onChange={() => this.props.resetForm('login')}
                     />
                 </View>
                 <View>
@@ -29,7 +29,7 @@ class LoginForm extends Component {
                         placeholder="Password"
                         inputStyle={[styles.fieldInputStyles, styles.font ]}
                         containerStyle={[styles.fieldContainerStyles, styles.passwordContainer ]}
-                        onChange={() => this.props.resetError('login')}
+                        onChange={() => this.props.resetForm('login')}
                     />
                 </View>
                 <View style={styles.submitContainer}>
@@ -48,6 +48,12 @@ class LoginForm extends Component {
                             this.props.parentState.error.screen === 'login' &&
                             <Text style={{ color: '#FA4616', fontFamily: 'PTSans-Narrow', paddingTop: 8 }}>
                                 { this.props.parentState.errorStates[this.props.parentState.error.code] }
+                            </Text>
+                        }
+                        {
+                            this.props.parentState.newUser &&
+                            <Text style={{ color: '#00e500', fontFamily: 'PTSans-Narrow', paddingTop: 8 }}>
+                                Please Sign in as { this.props.parentState.newUser }
                             </Text>
                         }
                     </View>
